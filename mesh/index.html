@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sending bitcoin (and XBT) over mesh networks: what actually works | XBT Self-Custody Guide</title><meta name="description" content="goTenna and TxTenna, Meshtastic relay projects like BTC Mesh, Bitchat ecash and Blockstream Satellite: what each does, what&#x27;s maintained, and whether any of it works with XBT yet. Checked November 15, 2026.">
+<link rel="canonical" href="https://rasputin-69420.github.io/xbt-guide/mesh/">
+<meta property="og:title" content="Sending bitcoin (and XBT) over mesh networks: what actually works | XBT Self-Custody Guide"><meta property="og:description" content="goTenna and TxTenna, Meshtastic relay projects like BTC Mesh, Bitchat ecash and Blockstream Satellite: what each does, what&#x27;s maintained, and whether any of it works with XBT yet. Checked November 15, 2026.">
+<meta property="og:site_name" content="XBT Self-Custody Guide"><meta property="og:type" content="website"><meta property="og:url" content="https://rasputin-69420.github.io/xbt-guide/mesh/">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0b1426"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="../"><span class="wordmark">XBT <b>Guide</b></span></a>
+<nav><a href="../">Start here</a><a href="../wallets/">Set up Shrike</a><a href="../exchanges/">Exchanges</a><a href="../mesh/">Mesh networks</a><a href="../faq/">FAQ &amp; glossary</a></nav></div></header>
+<main class="wrap"><article class="guide xguide"><p class="small"><a href="../">XBT guide</a> · updated 2026-11-15</p><nav class="xprog" aria-label="XBT guide steps"><p class="xstep-count">Step 10 of 12 &middot; <strong>Mesh networks</strong></p><div class="xbar" role="presentation"><span style="width:83%"></span></div><details class="xall"><summary>All guide pages</summary><ol class="xsteps"><li><a href="../">Start here</a></li><li><a href="../paths/">Your path in detail</a></li><li><a href="../self-custody/">Self-custody</a></li><li><a href="../wallets/">Set up Shrike</a></li><li><a href="../split/">Split BTC &amp; XBT</a></li><li><a href="../exchanges/">Exchanges</a></li><li><a href="../consolidate/">Withdraw &amp; consolidate</a></li><li><a href="../safety/">Safety checklist</a></li><li><a href="../why/">Why XBT</a></li><li><span aria-current="step">Mesh networks</span></li><li><a href="../faq/">FAQ &amp; glossary</a></li><li><a href="../sources/">Sources</a></li></ol></details></nav><h1>Sending bitcoin (and XBT) over mesh networks: what actually works</h1><div class="xquick"><p class="xquick-h">Quick version</p><ol><li>Optional: this is for using bitcoin off-grid, after your XBT is in your own wallet.</li><li>Sign offline, then relay the signed transaction over the mesh to a gateway with internet.</li><li>We found no mesh tool that says it supports XBT yet.</li></ol></div>
+<p class="lead">You can&rsquo;t run a blockchain over a radio mesh, but you don&rsquo;t need to. Every working method uses the same trick: sign the transaction offline, carry the small signed message over the mesh to someone who has internet, and let that &ldquo;gateway&rdquo; broadcast it. Your keys never leave your device.</p>
+<p class="small">Where this fits: this is optional, for using bitcoin off-grid. Get your XBT into your own wallet first: <a href="../">Start here</a>.</p>
+<p class="callout"><strong>Short version (November 15, 2026):</strong> the Meshtastic relay projects work for bitcoin but are hobby-grade and experimental. TxTenna and goTenna Mesh are effectively discontinued. Bitchat can pass Cashu ecash (custodial tokens), not on-chain coins. <strong>We found no mesh tool that says it supports XBT.</strong></p>
+
+<h2>The general method: sign offline, relay a raw transaction</h2>
+<ol>
+<li><strong>Build and sign</strong> the transaction on a device that isn&rsquo;t online (a hardware wallet, or wallet software on an offline computer). The result is a &ldquo;raw transaction&rdquo;: a few hundred bytes written as hex.</li>
+<li><strong>Chop it into pieces.</strong> Mesh messages are small. One Meshtastic bridge project notes Meshtastic&rsquo;s apps cap a message at 228 bytes, while a raw transaction&rsquo;s hex can run past 1,000 characters, so tools split it into numbered chunks.</li>
+<li><strong>Send the chunks across the mesh</strong> to a gateway node, hop by hop. Relays in between just pass packets along.</li>
+<li><strong>The gateway reassembles and broadcasts</strong> the transaction to its own full node (or a public service), which sends it to the network.</li>
+</ol>
+<p>A signed transaction can&rsquo;t be changed in transit without breaking its signature, so a relay can&rsquo;t redirect your coins. A relay <em>can</em> drop it, delay it, or see it.</p>
+<p class="small">Source: <a href="https://github.com/BTCtoolshed/MeshtasticBitcoinCore_Bridge" rel="noopener" target="_blank">MeshtasticBitcoinCore_Bridge README</a> (message size); <a href="https://github.com/eddieoz/btcmesh" rel="noopener" target="_blank">BTC Mesh README</a> (chunking and reassembly).</p>
+
+<h2>Meshtastic relay projects (LoRa)</h2>
+<p>Meshtastic has no built-in bitcoin feature. A few community projects add one. All are small, Bitcoin-only and experimental:</p>
+<div class="tablewrap"><table class="data xstack"><thead><tr><th scope="col">Project</th><th scope="col">What it does</th><th scope="col">Status</th></tr></thead><tbody>
+<tr><td data-label="Project"><a href="https://github.com/eddieoz/btcmesh" rel="noopener" target="_blank">BTC Mesh Relay</a> (eddieoz)</td><td data-label="What it does">A client sends a raw transaction as chunked Meshtastic direct messages. A relay server with a Meshtastic radio reassembles it and submits it to a Bitcoin Core node over RPC, optionally through Tor. Command-line and GUI clients.</td><td data-label="Status">README says &ldquo;currently under development&rdquo;. Last code push April 3, 2026. Demoed live at the <a href="https://noderunners.network/en/conference/activity/meshtastic-workshop" rel="noopener" target="_blank">Noderunners Conference 2026</a> workshop.</td></tr>
+<tr><td data-label="Project"><a href="https://github.com/BTCtoolshed/MeshtasticBitcoinCore_Bridge" rel="noopener" target="_blank">MeshtasticBitcoinCore_Bridge</a></td><td data-label="What it does">Broadcasts raw transactions sent over Meshtastic to a computer running Bitcoin Core, using manual message framing.</td><td data-label="Status">Small project. Last push February 7, 2026.</td></tr>
+<tr><td data-label="Project"><a href="https://github.com/brh28/btc-mesh" rel="noopener" target="_blank">btc-mesh</a> (brh28)</td><td data-label="What it does">Python scripts for sending bitcoin transactions over a mesh network.</td><td data-label="Status">Last push March 29, 2023, so treat it as unmaintained.</td></tr>
+</tbody></table></div>
+<p><strong>Hardware:</strong> any Meshtastic radio that connects to a computer or phone can carry the chunks. Radios with a USB connection to a laptop are the easiest fit for these Python tools, for example the <a href="https://meshcompare.com/devices/#heltec-v4">Heltec WiFi LoRa 32 V4</a> dev board or the <a href="https://meshcompare.com/devices/#t-beam-supreme">LILYGO T-Beam Supreme</a>. A gateway runs best on a fixed node with good height and steady power. Compare every radio in our <a href="https://meshcompare.com/devices/">mesh radio table</a>, and see <a href="https://meshcompare.com/guides/cheapest-way-to-start-meshtastic/">the cheapest way to start with Meshtastic</a>. A local mesh group can tell you whether anyone already runs a gateway: <a href="https://meshcompare.com/groups/">find one near you</a>.</p>
+
+<h2>goTenna Mesh and TxTenna</h2>
+<p><a href="https://github.com/MuleTools/txTenna" rel="noopener" target="_blank">TxTenna</a> was a proof-of-concept Android app from Samourai Wallet&rsquo;s Mule.Tools project. It sent signed bitcoin transactions over goTenna Mesh radios (or SMS) to a gateway, which pushed them out through Samourai&rsquo;s node.</p>
+<ul>
+<li><strong>The app:</strong> its GitHub repository was last updated April 24, 2020.</li>
+<li><strong>The gateway:</strong> on April 24, 2024, U.S. prosecutors charged Samourai&rsquo;s founders, and Samourai&rsquo;s web servers and domains were seized (<a href="https://www.justice.gov/usao-sdny/pr/founders-and-ceo-cryptocurrency-mixing-service-arrested-and-charged-money-laundering" rel="noopener" target="_blank">U.S. DOJ</a>, <a href="https://www.coindesk.com/policy/2024/04/24/samourai-wallet-founders-arrested-and-charged-with-money-laundering" rel="noopener" target="_blank">CoinDesk</a>). We assume the default gateway no longer works; we haven&rsquo;t tested it.</li>
+<li><strong>The radios:</strong> goTenna stopped supporting its consumer goTenna Mesh in 2024 and now sells only its Pro line, per a <a href="https://github.com/Dollarhyde/goTenna_v1_and_Mesh_vulnerabilities" rel="noopener" target="_blank">security researcher&rsquo;s disclosure</a> that also lists unpatched vulnerabilities. goTenna Mesh is not LoRa, so it can&rsquo;t talk to Meshtastic radios.</li>
+</ul>
+<p>Bottom line: interesting history, not something to rely on today.</p>
+
+<h2>Bitchat: ecash over Bluetooth</h2>
+<p><a href="https://github.com/permissionlesstech/bitchat" rel="noopener" target="_blank">Bitchat</a> is a phone app that relays messages over Bluetooth between nearby phones. Since July 7, 2026 (<a href="https://github.com/permissionlesstech/bitchat/pull/1376" rel="noopener" target="_blank">pull request #1376</a>, shipped in <a href="https://github.com/permissionlesstech/bitchat/releases/tag/v1.6.0" rel="noopener" target="_blank">v1.6.0</a>) it can detect and send <strong>Cashu ecash tokens</strong> with a <code>/pay</code> command.</p>
+<ul>
+<li>That is <strong>ecash, not an on-chain transaction</strong>. A token is a claim on a Cashu &ldquo;mint&rdquo; that holds the real bitcoin, so you are trusting that mint.</li>
+<li>Tokens are bearer instruments: whoever redeems one first gets it. That&rsquo;s why Bitchat asks you to confirm before paying in a public channel.</li>
+<li>Bitchat doesn&rsquo;t contact a mint itself. Redeeming hands off to a separate Cashu wallet, which needs internet at some point.</li>
+<li>We found no Cashu mint for XBT.</li>
+</ul>
+<p>More on the app: <a href="https://meshcompare.com/guides/bitchat-vs-meshtastic/">Bitchat vs Meshtastic</a> and our <a href="https://meshcompare.com/mesh-apps/">mesh apps page</a>.</p>
+
+<h2>Blockstream Satellite: receiving, not sending</h2>
+<p><a href="https://github.com/Blockstream/satellite" rel="noopener" target="_blank">Blockstream Satellite</a> broadcasts the bitcoin blockchain from satellites covering the Americas, Europe, Africa and Asia-Pacific. With a dish and receiver kit, a node can stay synced without internet (<a href="https://help.blockstream.com/blockstream-satellite" rel="noopener" target="_blank">Blockstream help center</a>). It&rsquo;s one-way: it lets an off-grid node <em>see</em> payments and confirm them, but you still need a mesh relay (or other link) to <em>send</em>. The service was still running in 2026: Blockstream published a <a href="https://github.com/Blockstream/satellite/wiki/Satellite-Network-Update-on-June-3,-2026" rel="noopener" target="_blank">network frequency update on June 3, 2026</a>. It carries the BTC (SHA-256) chain. We found nothing showing it carries XBT.</p>
+
+<h2>What about XBT?</h2>
+<p>None of the tools above documents XBT (BLAKE2b) support as of November 15, 2026. They all target bitcoin through Bitcoin Core or Samourai&rsquo;s servers.</p>
+<p>In principle, the raw-transaction method doesn&rsquo;t care which chain a transaction belongs to. The chain is decided by <strong>the node at the gateway</strong>. A gateway that hands transactions to an XBT node (Bitcoin Knots with the BIP-110/BLAKE2b rules) instead of a Bitcoin Core node would broadcast on XBT. That is our reading of how these tools work, not something any project has tested or promised. If you try it, use tiny amounts.</p>
+<p class="callout"><strong>Replay warning:</strong> if you sign from a wallet that held coins before the August 8, 2026 split, the same signed transaction may be valid on <em>both</em> chains, and whoever holds it could broadcast it on either. Split your coins first with our <a href="../split/">split guide</a>, or sign with an XBT wallet that uses replay protection (SIGHASH_UNIFIED). See <a href="../wallets/">Set up Shrike</a>.</p>
+
+<h2>Privacy and safety</h2>
+<ul>
+<li><strong>Mesh traffic isn&rsquo;t private by default.</strong> Relays and the gateway can see your raw transaction, which shows the addresses and amounts. On Meshtastic, use direct messages, and channel encryption where your group uses it. Don&rsquo;t post transactions in a public channel.</li>
+<li><strong>The gateway operator sees the most.</strong> They can link your radio&rsquo;s node ID to your transaction and could log it. Use a gateway you trust, or run your own. BTC Mesh can connect its node through Tor.</li>
+<li><strong>Radios reveal location.</strong> Many Meshtastic radios share GPS position. Turn off position sharing if you don&rsquo;t want your transaction linked to a place.</li>
+<li><strong>Never send a seed phrase or private key over any mesh.</strong> Only signed transactions travel. No legitimate relay will ever ask for keys.</li>
+<li><strong>Test small,</strong> and check the transaction on a block explorer once you&rsquo;re back online.</li>
+<li><strong>Follow your local radio rules.</strong> LoRa bands and power limits vary by country.</li>
+</ul>
+<p class="xpager"><a class="btn alt" href="../why/">&larr; Why XBT</a> <a class="btn" href="../faq/">Next: FAQ &amp; glossary &rarr;</a> <a class="btn alt" href="../">Back to Start here</a></p><p class="callout small"><strong>Not financial or tax advice.</strong> This guide is education only. Splitting, selling or trading fork coins may be a taxable event where you live; talk to a tax professional. The XBT wallets and firmware mentioned are new, community-built and unaudited. Test with small amounts; you are responsible for your own keys. We never ask for seeds, keys or money. See <a href="../sources/">sources</a>.</p></article></main>
+<footer class="foot"><div class="wrap">
+<p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
+<p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
+<p class="small">Mesh radio gear and prices: <a href="https://meshcompare.com/">meshcompare.com</a></p>
+</div></footer>
+</body></html>
