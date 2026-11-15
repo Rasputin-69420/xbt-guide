@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why XBT exists: keeping bitcoin money | XBT Self-Custody Guide</title><meta name="description" content="Why the BIP-110 fork happened, how Bitcoin Core v30&#x27;s data policy cuts against bitcoin&#x27;s role as money in our view, and why we back XBT. Facts sourced; opinions labeled.">
+<link rel="canonical" href="https://rasputin-69420.github.io/xbt-guide/why/">
+<meta property="og:title" content="Why XBT exists: keeping bitcoin money | XBT Self-Custody Guide"><meta property="og:description" content="Why the BIP-110 fork happened, how Bitcoin Core v30&#x27;s data policy cuts against bitcoin&#x27;s role as money in our view, and why we back XBT. Facts sourced; opinions labeled.">
+<meta property="og:site_name" content="XBT Self-Custody Guide"><meta property="og:type" content="website"><meta property="og:url" content="https://rasputin-69420.github.io/xbt-guide/why/">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0b1426"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="../"><span class="wordmark">XBT <b>Guide</b></span></a>
+<nav><a href="../">Start here</a><a href="../wallets/">Set up Shrike</a><a href="../exchanges/">Exchanges</a><a href="../mesh/">Mesh networks</a><a href="../faq/">FAQ &amp; glossary</a></nav></div></header>
+<main class="wrap"><article class="guide xguide"><p class="small"><a href="../">XBT guide</a> · updated 2026-11-15</p><nav class="xprog" aria-label="XBT guide steps"><p class="xstep-count">Step 9 of 12 &middot; <strong>Why XBT</strong></p><div class="xbar" role="presentation"><span style="width:75%"></span></div><details class="xall"><summary>All guide pages</summary><ol class="xsteps"><li><a href="../">Start here</a></li><li><a href="../paths/">Your path in detail</a></li><li><a href="../self-custody/">Self-custody</a></li><li><a href="../wallets/">Set up Shrike</a></li><li><a href="../split/">Split BTC &amp; XBT</a></li><li><a href="../exchanges/">Exchanges</a></li><li><a href="../consolidate/">Withdraw &amp; consolidate</a></li><li><a href="../safety/">Safety checklist</a></li><li><span aria-current="step">Why XBT</span></li><li><a href="../mesh/">Mesh networks</a></li><li><a href="../faq/">FAQ &amp; glossary</a></li><li><a href="../sources/">Sources</a></li></ol></details></nav><h1>Why XBT exists: keeping bitcoin money</h1><div class="xquick"><p class="xquick-h">Quick version</p><ol><li>XBT is the chain that kept enforcing BIP-110&rsquo;s limits on non-payment data after August 8, 2026.</li><li>Bitcoin Core v30 effectively uncapped OP_RETURN data by default. In our view, that works against bitcoin as money.</li><li>Our position: XBT keeps bitcoin&rsquo;s purpose. Ready to act? <a href="../">Secure your XBT</a>.</li></ol></div>
+<p class="lead">Bitcoin was built to be money: peer-to-peer electronic cash. XBT exists because a group of bitcoiners refused to let the network drift into a general data store, and kept enforcing rules that said so. This page explains what happened and where this guide stands.</p>
+<p class="callout small"><strong>How to read this page:</strong> sections marked <strong>Our position</strong> are this guide&rsquo;s opinion. Everything else is factual and linked to its source. Not financial advice.</p>
+
+<h2>1. What changed in Bitcoin Core v30</h2>
+<p>Bitcoin Core is the most widely used bitcoin node software. <a href="https://bitcoincore.org/en/releases/30.0/" rel="noopener" target="_blank">Version 30.0</a>, released October 10, 2025, changed how nodes treat data in OP_RETURN outputs, the part of a transaction meant for small notes rather than payments:</p>
+<ul>
+<li>The default <code>-datacarriersize</code> rose to 100,000 bytes, which the release notes say &ldquo;effectively uncaps the limit&rdquo;. Operators can set <code>-datacarriersize=83</code> to go back to the old limit.</li>
+<li>Transactions with <strong>multiple</strong> OP_RETURN outputs are now relayed and mined by default.</li>
+</ul>
+<p>These are relay and mining <em>policy</em> defaults, not consensus rules: nodes already accepted such transactions once they were in a block. The change came from pull request <a href="https://github.com/bitcoin/bitcoin/pull/32406" rel="noopener" target="_blank">#32406</a>. Bitcoin Core contributors explained their reasoning in a <a href="https://bitcoincore.org/en/2025/06/06/relay-statement/" rel="noopener" target="_blank">June 6, 2025 statement</a>.</p>
+<p class="small">Sources: <a href="https://bitcoincore.org/en/releases/30.0/" rel="noopener" target="_blank">Bitcoin Core 30.0 release notes</a>; <a href="https://bitcoinmagazine.com/technical/bitcoin-core-or-bitcoin-knots-what-the-op_return-debate-is-actually-about" rel="noopener" target="_blank">Bitcoin Magazine, October 6, 2025</a>.</p>
+
+<h2>2. Why many bitcoiners objected</h2>
+<p>Many node operators moved to <strong>Bitcoin Knots</strong>, an alternative node maintained by Luke Dashjr that keeps stricter filters on data. Per <a href="https://bitcoinmagazine.com/technical/bitcoin-core-or-bitcoin-knots-what-the-op_return-debate-is-actually-about" rel="noopener" target="_blank">Bitcoin Magazine&rsquo;s summary</a>, their concerns were that the change signals data &ldquo;spam&rdquo; is welcome, that data use could fill limited block space and push up fees for ordinary payments, and that easy-to-parse data raises the risk of illegal content and legal pressure on people who run nodes. <a href="https://www.axios.com/2025/10/30/bitcoin-crypto-storage" rel="noopener" target="_blank">Axios</a> reported in October 2025 that about a quarter of the network was running Knots, according to the Knots team&rsquo;s own count.</p>
+
+<h3>Our position: v30 works against bitcoin as money</h3>
+<p>We think the v30 defaults were a mistake for a monetary network:</p>
+<ul>
+<li><strong>Block space is the scarce resource that makes bitcoin work as money.</strong> Every byte spent storing pictures and tokens is a byte not settling payments. Making data the default welcomes competition that ordinary savers and spenders have to outbid.</li>
+<li><strong>Defaults are a statement.</strong> Bitcoin long kept OP_RETURN small to discourage data storage. Lifting that limit tells the world the network is open for any use, and we believe that drags development focus away from being sound money.</li>
+<li><strong>Node runners carry the cost.</strong> Bitcoin&rsquo;s security depends on ordinary people running full nodes. Every arbitrary file in the chain is something they have to download, store and pass on, whether they want to or not.</li>
+</ul>
+
+<h2>3. BIP-110 and the split</h2>
+<p><a href="https://github.com/bitcoin/bips/blob/master/bip-0110.mediawiki" rel="noopener" target="_blank">BIP-110, &ldquo;Reduced Data Temporary Softfork&rdquo;</a>, was the filtering side&rsquo;s answer. In its own words, its goal is to &ldquo;refocus priorities on improving Bitcoin as money&rdquo;. For a one-year deployment it would make these invalid, among others:</p>
+<ul>
+<li>new output scripts over 34 bytes, except OP_RETURN outputs, which may be up to 83 bytes (restoring the old policy limit, now in consensus);</li>
+<li>data pushes and script-argument witness items over 256 bytes;</li>
+<li>several Taproot features, such as the annex, OP_SUCCESS opcodes and large control blocks.</li>
+</ul>
+<p>Coins created before activation are exempt from the new rules (&ldquo;grandfathered&rdquo;), so no existing coins could be frozen. It used a 55% miner signaling threshold and a mandatory-signaling window starting at block 961,632.</p>
+<p>Miners didn&rsquo;t go along. According to <a href="https://xbt.live/history/" rel="noopener" target="_blank">xbt.live&rsquo;s history</a>, miner signaling peaked around 2.5% of blocks, and at block 961,632 on August 8, 2026 nearly all hashpower stayed on the old rules. That chain trades as BTC. The BIP-110 chain continued with very little hashpower, and on August 30, 2026, at block 961,640, it switched its mining to BLAKE2b, according to <a href="https://bitcoinbip110.org/psa/" rel="noopener" target="_blank">BitcoinBIP110.org</a>. That chain is XBT. Both chains share all history before the split.</p>
+<p class="small">Sources: <a href="https://github.com/bitcoin/bips/blob/master/bip-0110.mediawiki" rel="noopener" target="_blank">BIP-110</a> (the BIP repository now lists its status as Closed); <a href="https://groups.google.com/g/bitcoindev/c/nOZim6FbuF8" rel="noopener" target="_blank">bitcoindev mailing-list discussion</a>; <a href="https://xbt.live/history/" rel="noopener" target="_blank">xbt.live history</a> (updated 2026-10-05); <a href="https://bitcoinbip110.org/psa/" rel="noopener" target="_blank">BitcoinBIP110.org PSA-260902</a>.</p>
+
+<h2>4. Our position: reclaim real bitcoin</h2>
+<p>We believe XBT is the chain that kept bitcoin&rsquo;s purpose: the same coin history and rules that put payments first. Calling it &ldquo;real bitcoin&rdquo; is our view, and plenty of people disagree. But money is what its users choose, and we choose the chain that treats bitcoin as money.</p>
+<ul>
+<li><strong>If you held bitcoin before August 8, 2026, you already hold XBT.</strong> Nothing to buy or claim. See <a href="../#path-a">Held before Aug 8</a>. Starting from dollars or newer bitcoin? <a href="../#choose">Pick your path</a>.</li>
+<li><strong>Run a node.</strong> The rules only mean something if people enforce them.</li>
+<li><strong>Use it as money,</strong> including off-grid: see <a href="../mesh/">sending bitcoin and XBT over mesh networks</a>.</li>
+<li><strong>Go in with open eyes.</strong> XBT is young, thinly traded and risky. See <a href="../exchanges/">where it trades</a> and the <a href="../safety/">safety checklist</a>.</li>
+</ul>
+
+<h2>What Core supporters say</h2>
+<p>In fairness: Bitcoin Core contributors argue that policy filters don&rsquo;t stop data that pays fees, because users and miners can work directly together, and that refusing to relay transactions miners will mine anyway pushes users toward private submission channels that favor large miners. They say node software should predict what goes into the next block rather than police consenting users, and that this is &ldquo;not endorsing or condoning non-financial data usage&rdquo; but accepting that a censorship-resistant system &ldquo;can and will be used for use cases not everyone agrees on&rdquo; (<a href="https://bitcoincore.org/en/2025/06/06/relay-statement/" rel="noopener" target="_blank">Bitcoin Core statement</a>). Critics of XBT also point out that the BTC chain kept nearly all of the hashpower and that XBT&rsquo;s new proof of work is far less tested (<a href="https://xbt.live/history/" rel="noopener" target="_blank">xbt.live history</a>). Read both sides and decide for yourself.</p>
+<p><a class="btn" href="../">Ready? Get your XBT into your own wallet &rarr;</a></p>
+<p class="xpager"><a class="btn alt" href="../safety/">&larr; Safety checklist</a> <a class="btn" href="../mesh/">Next: Mesh networks &rarr;</a> <a class="btn alt" href="../">Back to Start here</a></p><p class="callout small"><strong>Not financial or tax advice.</strong> This guide is education only. Splitting, selling or trading fork coins may be a taxable event where you live; talk to a tax professional. The XBT wallets and firmware mentioned are new, community-built and unaudited. Test with small amounts; you are responsible for your own keys. We never ask for seeds, keys or money. See <a href="../sources/">sources</a>.</p></article></main>
+<footer class="foot"><div class="wrap">
+<p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
+<p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
+</div></footer>
+</body></html>

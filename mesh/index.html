@@ -34,7 +34,7 @@
 <tr><td data-label="Project"><a href="https://github.com/BTCtoolshed/MeshtasticBitcoinCore_Bridge" rel="noopener" target="_blank">MeshtasticBitcoinCore_Bridge</a></td><td data-label="What it does">Broadcasts raw transactions sent over Meshtastic to a computer running Bitcoin Core, using manual message framing.</td><td data-label="Status">Small project. Last push February 7, 2026.</td></tr>
 <tr><td data-label="Project"><a href="https://github.com/brh28/btc-mesh" rel="noopener" target="_blank">btc-mesh</a> (brh28)</td><td data-label="What it does">Python scripts for sending bitcoin transactions over a mesh network.</td><td data-label="Status">Last push March 29, 2023, so treat it as unmaintained.</td></tr>
 </tbody></table></div>
-<p><strong>Hardware:</strong> any Meshtastic radio that connects to a computer or phone can carry the chunks. Radios with a USB connection to a laptop are the easiest fit for these Python tools, for example the <a href="https://meshcompare.com/devices/#heltec-v4">Heltec WiFi LoRa 32 V4</a> dev board or the <a href="https://meshcompare.com/devices/#t-beam-supreme">LILYGO T-Beam Supreme</a>. A gateway runs best on a fixed node with good height and steady power. Compare every radio in our <a href="https://meshcompare.com/devices/">mesh radio table</a>, and see <a href="https://meshcompare.com/guides/cheapest-way-to-start-meshtastic/">the cheapest way to start with Meshtastic</a>. A local mesh group can tell you whether anyone already runs a gateway: <a href="https://meshcompare.com/groups/">find one near you</a>.</p>
+<p><strong>Hardware:</strong> any Meshtastic radio that connects to a computer or phone can carry the chunks. Radios with a USB connection to a laptop are the easiest fit for these Python tools, for example the Heltec WiFi LoRa 32 V4 dev board or the LILYGO T-Beam Supreme. A gateway runs best on a fixed node with good height and steady power. See the <a href="https://meshtastic.org/docs/hardware/devices/" rel="noopener" target="_blank">Meshtastic supported hardware list</a> and <a href="https://meshtastic.org/docs/getting-started/" rel="noopener" target="_blank">getting started guide</a>. A local mesh group can tell you whether anyone already runs a gateway.</p>
 
 <h2>goTenna Mesh and TxTenna</h2>
 <p><a href="https://github.com/MuleTools/txTenna" rel="noopener" target="_blank">TxTenna</a> was a proof-of-concept Android app from Samourai Wallet&rsquo;s Mule.Tools project. It sent signed bitcoin transactions over goTenna Mesh radios (or SMS) to a gateway, which pushed them out through Samourai&rsquo;s node.</p>
@@ -53,7 +53,7 @@
 <li>Bitchat doesn&rsquo;t contact a mint itself. Redeeming hands off to a separate Cashu wallet, which needs internet at some point.</li>
 <li>We found no Cashu mint for XBT.</li>
 </ul>
-<p>More on the app: <a href="https://meshcompare.com/guides/bitchat-vs-meshtastic/">Bitchat vs Meshtastic</a> and our <a href="https://meshcompare.com/mesh-apps/">mesh apps page</a>.</p>
+<p>More on the app: <a href="https://bitchat.free/" rel="noopener" target="_blank">Bitchat</a> and <a href="https://meshtastic.org/" rel="noopener" target="_blank">Meshtastic</a>.</p>
 
 <h2>Blockstream Satellite: receiving, not sending</h2>
 <p><a href="https://github.com/Blockstream/satellite" rel="noopener" target="_blank">Blockstream Satellite</a> broadcasts the bitcoin blockchain from satellites covering the Americas, Europe, Africa and Asia-Pacific. With a dish and receiver kit, a node can stay synced without internet (<a href="https://help.blockstream.com/blockstream-satellite" rel="noopener" target="_blank">Blockstream help center</a>). It&rsquo;s one-way: it lets an off-grid node <em>see</em> payments and confirm them, but you still need a mesh relay (or other link) to <em>send</em>. The service was still running in 2026: Blockstream published a <a href="https://github.com/Blockstream/satellite/wiki/Satellite-Network-Update-on-June-3,-2026" rel="noopener" target="_blank">network frequency update on June 3, 2026</a>. It carries the BTC (SHA-256) chain. We found nothing showing it carries XBT.</p>
@@ -76,6 +76,5 @@
 <footer class="foot"><div class="wrap">
 <p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
 <p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
-<p class="small">Mesh radio gear and prices: <a href="https://meshcompare.com/">meshcompare.com</a></p>
 </div></footer>
 </body></html>
