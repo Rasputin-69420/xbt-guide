@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to self-custody XBT: which hardware wallets support it | XBT Self-Custody Guide</title><meta name="description" content="Plain answer, checked November 15, 2026: which hardware wallets can hold and sign XBT (BTCB2, Bitcoin BLAKE2b) with replay protection, which can&#x27;t, the best option today, and step by step how to make a new seed on the device, pair it with Shrike and test it.">
+<link rel="canonical" href="https://rasputin-69420.github.io/xbt-guide/self-custody/">
+<meta property="og:title" content="How to self-custody XBT: which hardware wallets support it | XBT Self-Custody Guide"><meta property="og:description" content="Plain answer, checked November 15, 2026: which hardware wallets can hold and sign XBT (BTCB2, Bitcoin BLAKE2b) with replay protection, which can&#x27;t, the best option today, and step by step how to make a new seed on the device, pair it with Shrike and test it.">
+<meta property="og:site_name" content="XBT Self-Custody Guide"><meta property="og:type" content="website"><meta property="og:url" content="https://rasputin-69420.github.io/xbt-guide/self-custody/">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0b1426"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="../"><span class="wordmark">XBT <b>Guide</b></span></a>
+<nav><a href="../">Start here</a><a href="../wallets/">Set up Shrike</a><a href="../exchanges/">Exchanges</a><a href="../mesh/">Mesh networks</a><a href="../faq/">FAQ &amp; glossary</a></nav></div></header>
+<main class="wrap"><article class="guide xguide"><p class="small"><a href="../">XBT guide</a> · updated 2026-11-15</p><nav class="xprog" aria-label="XBT guide steps"><p class="xstep-count">Step 3 of 12 &middot; <strong>Self-custody</strong></p><div class="xbar" role="presentation"><span style="width:25%"></span></div><details class="xall"><summary>All guide pages</summary><ol class="xsteps"><li><a href="../">Start here</a></li><li><a href="../paths/">Your path in detail</a></li><li><span aria-current="step">Self-custody</span></li><li><a href="../wallets/">Set up Shrike</a></li><li><a href="../split/">Split BTC &amp; XBT</a></li><li><a href="../exchanges/">Exchanges</a></li><li><a href="../consolidate/">Withdraw &amp; consolidate</a></li><li><a href="../safety/">Safety checklist</a></li><li><a href="../why/">Why XBT</a></li><li><a href="../mesh/">Mesh networks</a></li><li><a href="../faq/">FAQ &amp; glossary</a></li><li><a href="../sources/">Sources</a></li></ol></details></nav><h1>How to self-custody XBT: which hardware wallets support it</h1><div class="xquick"><p class="xquick-h">Quick version</p><ol><li>Get a signer that can make XBT&rsquo;s replay-protected signature: <strong>Paperclip Krux</strong> (ready-made) or a <strong>SeedSigner</strong> with privkeyio&rsquo;s XBT firmware (DIY). Stock Ledger, Trezor, Coldcard, BitBox, Jade, Keystone and Passport can&rsquo;t yet.</li><li>Make a <strong>brand-new seed on the device</strong>, write it on paper, verify the backup. Never use your BTC seed.</li><li>Pair it with <strong>Shrike</strong> (watch-only), receive a small test, send a small test, check the send screen says replay protected, then move the rest.</li></ol></div>
+<p class="lead"><strong>The plain answer:</strong> you self-custody XBT by holding it at addresses whose seed only you have, ideally on a signing device that never goes online. <strong>No mainstream hardware wallet supports XBT on its normal firmware yet.</strong> Ledger, Trezor, Coldcard, BitBox, Jade, Keystone and Passport can&rsquo;t make XBT&rsquo;s replay-protected signature. Without it, a spend of coins you held before the split could be copied onto the BTC chain. What works today is <strong>Paperclip Krux</strong>, a $70 signer built only for XBT; a <strong>SeedSigner</strong> running community XBT firmware; or a <strong>spare Trezor or Coldcard</strong> re-flashed with unofficial firmware. Each one signs for <a href="../wallets/">Shrike</a>, the desktop XBT wallet, which needs your own Bitcoin Knots node. All of it is new and unaudited, so start small.</p>
+
+<p class="small"><strong>Jump to:</strong> <a href="#best">Best option</a> · <a href="#table">Device table</a> · <a href="#devices">Device notes</a> · <a href="#seed">New seed</a> · <a href="#pair">Pair with Shrike</a> · <a href="#no-hardware">No hardware wallet?</a> · New words: <a href="../faq/#glossary">glossary</a></p>
+<ol class="xflow" aria-label="Self-custody in four steps">
+<li><a href="#best"><span class="xflow-n" aria-hidden="true">1</span><span class="xflow-t">Get a signer that supports XBT</span><span class="xflow-s">Paperclip Krux or SeedSigner</span></a></li>
+<li><a href="#seed"><span class="xflow-n" aria-hidden="true">2</span><span class="xflow-t">Make a new seed on it</span><span class="xflow-s">Paper backup, never your BTC seed</span></a></li>
+<li><a href="#pair"><span class="xflow-n" aria-hidden="true">3</span><span class="xflow-t">Pair it with Shrike</span><span class="xflow-s">Watch-only, mark replay protection</span></a></li>
+<li><a href="#test"><span class="xflow-n" aria-hidden="true">4</span><span class="xflow-t">Test, then move the rest</span><span class="xflow-s">Small receive, small send</span></a></li>
+</ol>
+<p class="callout"><strong>Golden rule:</strong> never type a seed that still guards bitcoin into new or unfamiliar software. Move your BTC to a fresh wallet first. Nobody needs your seed to &ldquo;claim&rdquo; anything.</p>
+
+<h2 id="best">Step 1: get a signer that supports XBT</h2>
+<p>Our ranking today, best first. The full device table and per-device notes follow.</p>
+<div class="xpicks">
+<div class="xpick xpick-top"><p class="xpick-tag">Our pick</p><h3>Paperclip Krux</h3>
+<p>Ready-made, $70, and it <strong>only</strong> signs the XBT kind, so a slip can&rsquo;t produce a signature that&rsquo;s valid on BTC. No Wi-Fi, no Bluetooth, no battery. Signs by QR code or microSD. Its firmware updates are checked by the device itself. Works with Shrike.</p>
+<p class="small"><strong>Catch:</strong> out of stock when we checked on November 15 (the shop offers a restock alert). Its firmware is weeks old.</p>
+<p><a class="btn" href="#dev-krux">Krux setup notes</a></p></div>
+<div class="xpick"><p class="xpick-tag">Best DIY</p><h3>SeedSigner + XBT firmware</h3>
+<p>About $60 in Raspberry Pi parts, and xbt.live&rsquo;s pick for savings. It stores nothing and signs by QR code. Its screen names the signature type (<em>Unified sighash (0x21)</em>), so you can see you got replay protection. The XBT build has signed a real mainnet transaction on hardware.</p>
+<p><a class="btn" href="#dev-seedsigner">SeedSigner setup notes</a></p></div>
+<div class="xpick"><p class="xpick-tag">Only if it&rsquo;s a spare</p><h3>Trezor or Coldcard, re-flashed</h3>
+<p>Unofficial firmware exists. Flashing a Trezor erases it; a flashed Coldcard warns on every boot and loses its green &ldquo;genuine&rdquo; light permanently. <strong>Never flash the device that holds your bitcoin.</strong> Only Trezor&rsquo;s Model One build has been run on real hardware.</p>
+<p><a class="btn alt" href="#dev-trezor">Trezor notes</a> <a class="btn alt" href="#dev-coldcard">Coldcard notes</a></p></div>
+</div>
+<p class="callout"><strong>Don&rsquo;t wait for the big brands.</strong> Coinkite (Coldcard) closed a request to add XBT signing with &ldquo;We only support bitcoin.&rdquo; SatoshiLabs (Trezor) closed one too, saying it falls outside what it accepts and that its coin rules exclude coins whose addresses look like Bitcoin&rsquo;s. We found no plans from Ledger, BitBox, Blockstream, Keystone or Foundation.</p>
+
+<h2 id="table">Which hardware wallets support XBT?</h2>
+<p>&ldquo;Supported&rdquo; means the device can sign with XBT&rsquo;s replay protection (<code>SIGHASH_UNIFIED</code>, hash type <code>0x21</code>): valid on XBT, rejected by BTC. Checked November 15, 2026. Tap a device name for details.</p>
+<div class="tablewrap"><table class="data xhwtable">
+<thead><tr><th scope="col">Device</th><th scope="col">XBT status</th><th scope="col">Source</th></tr></thead>
+<tbody>
+<tr><td><a href="#dev-krux">Paperclip Krux</a></td><td><span class="xb xb-ok">Supported</span> XBT-only device</td><td><a href="https://github.com/connorslab/krux-blake2b" rel="noopener" target="_blank">krux-blake2b</a></td></tr>
+<tr><td><a href="#dev-seedsigner">SeedSigner</a></td><td><span class="xb xb-comm">Community firmware</span></td><td><a href="https://github.com/privkeyio/seedsigner/releases" rel="noopener" target="_blank">privkeyio/seedsigner</a></td></tr>
+<tr><td><a href="#dev-trezor">Trezor</a> (One, T, Safe 3/5/7)</td><td><span class="xb xb-comm">Community firmware</span> stock: <span class="xb xb-no">No</span></td><td><a href="https://github.com/privkeyio/trezor-firmware/releases" rel="noopener" target="_blank">privkeyio/trezor-firmware</a></td></tr>
+<tr><td><a href="#dev-coldcard">Coldcard</a> (Mk4, Mk5, Q)</td><td><span class="xb xb-comm">Community firmware</span> stock: <span class="xb xb-no">No</span></td><td><a href="https://github.com/privkeyio/cc-firmware/releases" rel="noopener" target="_blank">privkeyio/cc-firmware</a></td></tr>
+<tr><td><a href="#dev-bitkey">Bitkey</a> (Lazarus Key app)</td><td><span class="xb xb-comm">Unofficial app</span> phone key adds the protection</td><td><a href="https://github.com/AwokenLazarus/lazarus-key/blob/main/XBT.md" rel="noopener" target="_blank">lazarus-key</a></td></tr>
+<tr><td><a href="#dev-ledger">Ledger</a></td><td><span class="xb xb-no">Not supported yet</span></td><td><a href="https://github.com/LedgerHQ/app-bitcoin-new/blob/develop/CHANGELOG.md" rel="noopener" target="_blank">Bitcoin app notes</a></td></tr>
+<tr><td><a href="#dev-others">BitBox02</a></td><td><span class="xb xb-no">Not supported yet</span></td><td><a href="https://github.com/BitBoxSwiss/bitbox02-firmware/blob/master/CHANGELOG.md" rel="noopener" target="_blank">changelog</a></td></tr>
+<tr><td><a href="#dev-others">Blockstream Jade</a></td><td><span class="xb xb-no">Not supported yet</span></td><td><a href="https://github.com/Blockstream/Jade/blob/master/CHANGELOG.md" rel="noopener" target="_blank">changelog</a></td></tr>
+<tr><td><a href="#dev-others">Keystone 3</a></td><td><span class="xb xb-no">Not supported yet</span></td><td><a href="https://github.com/KeystoneHQ/keystone3-firmware/blob/master/CHANGELOG.md" rel="noopener" target="_blank">changelog</a></td></tr>
+<tr><td><a href="#dev-others">Passport (Core)</a></td><td><span class="xb xb-no">Not supported yet</span></td><td><a href="https://github.com/Foundation-Devices/passport2/releases" rel="noopener" target="_blank">releases</a></td></tr>
+<tr><td><a href="#dev-others">Passport Prime</a></td><td><span class="xb xb-unk">Unknown</span></td><td>not checked</td></tr>
+<tr><td><a href="#dev-others">Krux on other devices</a></td><td><span class="xb xb-unk">Unknown</span></td><td><a href="https://github.com/selfcustody/krux/blob/main/CHANGELOG.md" rel="noopener" target="_blank">Krux notes</a></td></tr>
+<tr><td><a href="#dev-others">SeedSigner + Satochip card</a></td><td><span class="xb xb-unk">Unknown</span> untested pre-release</td><td><a href="https://github.com/privkeyio/seedsigner/releases" rel="noopener" target="_blank">privkeyio/seedsigner</a></td></tr>
+</tbody></table></div>
+<p class="small">Cross-checked against Shrike&rsquo;s docs (&ldquo;Stock firmware from any manufacturer cannot produce SIGHASH_UNIFIED yet&rdquo;), <a href="https://xbt.live/wallets/" rel="noopener" target="_blank">xbt.live&rsquo;s wallet list</a> (last checked by xbt.live November 11, 2026) and the <a href="https://github.com/bitcoin-blake/awesome-bitcoin-blake#hardware-signers" rel="noopener" target="_blank">awesome-bitcoin-blake hardware list</a>.</p>
+<p class="callout"><strong>A stricter view:</strong> BitcoinBIP110.org, the project&rsquo;s reference site, says &ldquo;There are no hardware wallets that currently support Bitcoin BIP110&rdquo; and advises waiting until a hardware wallet maker publishes official support. By that standard, only Paperclip Krux comes from its own maker, and that site doesn&rsquo;t list it. Every option here is community-built. Treat them as experimental and start small.</p>
+<p class="callout"><strong>&ldquo;Not supported&rdquo; doesn&rsquo;t mean your XBT is lost.</strong> If you held bitcoin before August 8, 2026, your XBT sits at the same addresses, under the same keys, as your BTC, so any device still holds those keys. What a stock device can&rsquo;t do is make the protected signature. Shrike&rsquo;s docs say an unmarked device &ldquo;still signs, but produces signatures with no replay protection&rdquo;, and a legacy-signed spend of pre-split coins can be replayed onto BTC. The safe order: <a href="../split/#method-a">move your BTC to a new wallet first</a>. After that the old device only guards XBT, and you can send that XBT to a new seed on a supported signer.</p>
+
+<h2 id="devices">Device-by-device details</h2>
+<details class="toggle xdev" id="dev-krux"><summary>Paperclip Krux: supported (XBT-only)</summary>
+<ul>
+<li><strong>What it is:</strong> a Yahboom K210 with a touchscreen and camera, running Connor&rsquo;s Lab&rsquo;s Krux fork. No Wi-Fi, Bluetooth or battery; power it from a USB power bank or wall adapter. $70, paid in XBT. <strong>Out of stock</strong> on November 15, 2026.</li>
+<li><strong>How it signs:</strong> the shop says the firmware &ldquo;requires unified-sighash transactions and rejects incompatible signing requests rather than silently switching modes.&rdquo; Current firmware: v26.09.0-xbt.2 (prerelease, October 20, 2026), reproducible, with 1,220 regression tests passing.</li>
+<li><strong>Update first:</strong> devices on v26.09.0-xbt.1 or older need <strong>one USB install</strong> of xbt.2 to turn on signed microSD updates (<a href="https://github.com/connorslab/krux-blake2b/blob/main/docs/FIRMWARE-UPDATES.md" rel="noopener" target="_blank">install guide</a>). After that, the device checks each update&rsquo;s signature itself.</li>
+<li><strong>New seed:</strong> at the start screen choose <strong>New Mnemonic</strong>, then camera, words, <strong>D6</strong> or <strong>D20</strong> dice. Dice are recommended: 99 D6 rolls or 60 D20 rolls for 24 words.</li>
+<li><strong>Optional encrypted copy</strong> on flash, microSD or a QR. It doesn&rsquo;t include a BIP39 passphrase and doesn&rsquo;t replace your paper backup.</li>
+<li><strong>Pair:</strong> on the Krux open <strong>Extended Public Key</strong> and export the XPUB or ZPUB as a QR. In Shrike, choose Krux when adding the keystore.</li>
+<li><strong>Check addresses:</strong> <strong>Address &rarr; Scan Address</strong>. <strong>Sign:</strong> <strong>Sign &rarr; PSBT &rarr; Load from camera</strong>, check the details, then <strong>Sign to QR code</strong>.</li>
+</ul>
+<p class="small">Sources: <a href="https://shop.paperclip-xbt.xyz/product/k210-krux-hardware-wallet/" rel="noopener" target="_blank">Paperclip Shop listing</a>; <a href="https://github.com/connorslab/krux-blake2b" rel="noopener" target="_blank">krux-blake2b README</a>, <a href="https://github.com/connorslab/krux-blake2b/blob/main/docs/SEED-STORAGE.md" rel="noopener" target="_blank">seed storage</a>, <a href="https://github.com/connorslab/krux-blake2b/blob/main/docs/getting-started/usage/generating-a-mnemonic.en.md" rel="noopener" target="_blank">generating a mnemonic</a>, <a href="https://github.com/connorslab/krux-blake2b/blob/main/docs/getting-started/usage/setting-a-coordinator-and-signing.en.md" rel="noopener" target="_blank">coordinator and signing</a>; <a href="https://xbt.live/news/paperclip-krux-xbt-hardware-wallet/" rel="noopener" target="_blank">xbt.live write-up</a>.</p></details>
+
+<details class="toggle xdev" id="dev-seedsigner"><summary>SeedSigner: supported via community firmware</summary>
+<ul>
+<li><strong>Firmware:</strong> privkeyio&rsquo;s unofficial build, <strong>v0.8.7-unified-sighash.6</strong> (September 5, 2026). It isn&rsquo;t a SeedSigner project release. Images: <code>pi0</code> for Pi Zero v1.3/Zero W, <code>pi02w</code> for Zero 2 W/Pi 3B, <code>pi2</code>, <code>pi4</code>. The release says it signed a mainnet transaction carrying the opt-in on real hardware.</li>
+<li><strong>Install:</strong> download the image plus <code>SHA256SUMS</code>, <code>SHA256SUMS.asc</code> and the signing key. Verify <em>before</em> flashing (look for <code>Good signature from "Kyle Santiago"</code> and fingerprint <code>A47D 99B6 DB0D 715D 40C5 9A20 23AE 8A8E A7E2 4E38</code>). Then write the image to a microSD card with Balena Etcher or Raspberry Pi Imager; copying the file onto the card does nothing.</li>
+<li><strong>New seed:</strong> <strong>Tools &rarr; New seed</strong> (dice), choose 24 words, roll 99 times. Write the words down, then choose <strong>Verify</strong> and finish when it shows <strong>Backup Verified</strong>.</li>
+<li><strong>No PIN, no storage:</strong> SeedSigner forgets the seed at power-off. You load it from your paper (or a SeedQR you make) each time, so guard that backup.</li>
+<li><strong>Pair:</strong> <strong>Export xpub &rarr; Native SegWit &rarr; Sparrow</strong>, then scan it into Shrike as an airgapped hardware wallet.</li>
+<li><strong>Sign:</strong> the approval screen reads <em>Unified sighash (0x21)</em> or <em>Standard sighash (0x01)</em>. Only approve 0x21. It refuses a transaction it can only partly sign.</li>
+</ul>
+<p class="small">Sources: <a href="https://github.com/privkeyio/seedsigner/releases/tag/v0.8.7-unified-sighash.6" rel="noopener" target="_blank">release notes</a>, <a href="https://github.com/privkeyio/seedsigner" rel="noopener" target="_blank">README</a> and source menus; <a href="https://xbt.live/cold-storage/" rel="noopener" target="_blank">xbt.live cold storage guide</a>.</p></details>
+
+<details class="toggle xdev" id="dev-trezor"><summary>Trezor: community firmware only (stock not supported)</summary>
+<ul>
+<li><strong>Firmware:</strong> privkeyio&rsquo;s unofficial fork, release <strong>unified-sighash.2</strong> (September 4, 2026), Bitcoin-only. Match the file to your model: Model One <code>T1B1</code> (1.14.2); Model T <code>T2T1</code>, Safe 3 <code>T3B1</code>, Safe 5 <code>T3T1</code>, Safe 7 <code>T3W1</code> (2.12.5).</li>
+<li><strong>Tested:</strong> only the Model One has been run on real hardware, including a signed mainnet transaction. The others were tested only on the emulator.</li>
+<li><strong>Costs:</strong> installing it <strong>erases the device</strong>, and so does going back to official firmware. It shows an unofficial-firmware warning and a fingerprint on every boot, permanently. Shrike&rsquo;s docs add that it voids the warranty and can brick the device.</li>
+<li><strong>Software:</strong> Trezor Suite can&rsquo;t ask for the XBT signature. Shrike can, over USB, through its lark library. Keep Shrike and the firmware updated together: a mismatched pair refuses to opt in.</li>
+<li><strong>New seed:</strong> after flashing, set it up as a brand-new wallet and write down the new words.</li>
+<li>SatoshiLabs closed the request to add this upstream on October 6, 2026.</li>
+</ul>
+<p class="small">Sources: <a href="https://github.com/privkeyio/trezor-firmware/releases/tag/unified-sighash.2" rel="noopener" target="_blank">release notes</a>; <a href="https://shrikewallet.com/docs/firmware.html" rel="noopener" target="_blank">Shrike: hardware wallet firmware</a>; <a href="https://github.com/trezor/trezor-firmware/pull/7817" rel="noopener" target="_blank">trezor-firmware PR #7817</a>.</p></details>
+
+<details class="toggle xdev" id="dev-coldcard"><summary>Coldcard: community firmware only (stock not supported)</summary>
+<ul>
+<li><strong>Firmware:</strong> privkeyio&rsquo;s unofficial fork <strong>v5.6.3U</strong> for Mk4/Mk5 (<code>-mk-coldcard.dfu</code>) and <strong>1.5.3QU</strong> for Q (<code>-q1-coldcard.dfu</code>), October 2, 2026, built on Coinkite&rsquo;s 5.6.3 / 1.5.3Q. It signs the XBT message when the PSBT asks for it. No taproot.</li>
+<li><strong>Costs:</strong> it&rsquo;s signed with Coldcard&rsquo;s public development key, so every boot shows a warning and a forced delay, the green &ldquo;genuine&rdquo; light never comes on, and installing needs your main PIN. The release says: &ldquo;Do not put this on a device holding funds you cannot afford to lose access to.&rdquo;</li>
+<li><strong>Seed warning:</strong> Coinkite&rsquo;s advisory, carried in the fork&rsquo;s README, says seeds made on firmware from 2021 to July 2026 had poor entropy and are only trusted from 5.6.0 (Mk4/Mk5) or 1.5.0Q (Q) onward. Make your XBT seed on the fork itself, and add dice rolls.</li>
+<li><strong>Pair:</strong> microSD or QR (Q), as an airgapped hardware wallet in Shrike, then tick Replay protection.</li>
+<li>Coinkite closed the request to add this upstream on September 3, 2026: &ldquo;We only support bitcoin.&rdquo;</li>
+</ul>
+<p class="small">Sources: <a href="https://github.com/privkeyio/cc-firmware/releases/tag/v5.6.3U-1.5.3QU" rel="noopener" target="_blank">release notes</a>, <a href="https://github.com/privkeyio/cc-firmware" rel="noopener" target="_blank">README</a>; <a href="https://github.com/Coldcard/firmware/pull/807" rel="noopener" target="_blank">Coldcard PR #807</a>; <a href="https://shrikewallet.com/docs/firmware.html" rel="noopener" target="_blank">Shrike: hardware wallet firmware</a>.</p></details>
+
+<details class="toggle xdev" id="dev-bitkey"><summary>Bitkey with Lazarus Key: unofficial app, with a catch</summary>
+<ul>
+<li><strong>What it is:</strong> a fork of Block&rsquo;s Bitkey app for Android (NFC), installed by sideloading an APK and checking its checksum. The Bitkey device isn&rsquo;t re-flashed.</li>
+<li><strong>The catch:</strong> its own notes say &ldquo;The Bitkey hardware cannot produce&rdquo; the XBT signature. In Bitkey&rsquo;s 2-of-3 setup, the <em>phone</em> key adds it, which protects the whole transaction. The site also says not to rely on it alone for coins from before block 961,640 until its next release.</li>
+<li><strong>Other limits:</strong> a new wallet has to be created through Block&rsquo;s servers once. The app trusts its Electrum server rather than checking BLAKE2b proof of work. It uses a paper Emergency Exit Kit instead of seed words. xbt.live hasn&rsquo;t tested it, and Lazarus is an xbt.live sponsor.</li>
+</ul>
+<p class="small">Sources: <a href="https://lazarus-xbt.xyz/key/" rel="noopener" target="_blank">lazarus-xbt.xyz/key</a>; <a href="https://github.com/AwokenLazarus/lazarus-key/blob/main/XBT.md" rel="noopener" target="_blank">XBT.md</a>; <a href="https://xbt.live/wallets/" rel="noopener" target="_blank">xbt.live wallets</a>.</p></details>
+
+<details class="toggle xdev" id="dev-ledger"><summary>Ledger: not supported yet</summary>
+<p>We found no XBT app or firmware. Ledger&rsquo;s Bitcoin app release notes (through 2.6.0) don&rsquo;t mention it, and neither does anything else on Ledger&rsquo;s GitHub. On August 9, 2026, before XBT&rsquo;s opt-in signature existed, Ledger warned users not to claim or move BIP-110 coins because of replay risk (as reported by Lookonchain). A Ledger can still hold the keys to pre-split XBT, but it signs only the legacy, replayable way. Use the safe order in the callout above.</p>
+<p class="small">Sources: <a href="https://github.com/LedgerHQ/app-bitcoin-new/blob/develop/CHANGELOG.md" rel="noopener" target="_blank">Ledger Bitcoin app changelog</a>; <a href="https://www.ledger.com/academy/glossary/bip-110" rel="noopener" target="_blank">Ledger Academy: BIP-110</a>; <a href="https://www.lookonchain.com/feeds/67531" rel="noopener" target="_blank">Lookonchain report</a>.</p></details>
+
+<details class="toggle xdev" id="dev-others"><summary>BitBox02, Jade, Keystone, Passport and others</summary>
+<ul>
+<li><strong>BitBox02:</strong> not supported yet. No mention in the firmware changelog (latest v9.27.1, August 31, 2026) or its issue tracker.</li>
+<li><strong>Blockstream Jade:</strong> not supported yet. No mention in the changelog (latest 1.0.41, August 22, 2026) or its issue tracker.</li>
+<li><strong>Keystone 3:</strong> not supported yet. No mention in the changelog (latest 3.2.2, November 10, 2026) or its issue tracker.</li>
+<li><strong>Foundation Passport (Core / Founder&rsquo;s Edition):</strong> not supported yet. The latest release, v2.3.11, is from December 2025, before the split. <strong>Passport Prime:</strong> unknown; we didn&rsquo;t check its release notes.</li>
+<li><strong>Krux on other devices</strong> (M5StickV, Amigo, etc.): unknown. Upstream Krux (26.09.0) doesn&rsquo;t mention XBT, and the XBT fork publishes builds only for the Yahboom K210.</li>
+<li><strong>SeedSigner with a Satochip smartcard:</strong> unknown. privkeyio publishes a pre-release that it says &ldquo;has not been run on card hardware.&rdquo;</li>
+<li>No community XBT firmware was found for any of these. Shrike&rsquo;s docs list builds only for Coldcard, SeedSigner and Trezor.</li>
+</ul></details>
+
+<h2 id="seed">Step 2: make a brand-new seed on the device</h2>
+<ol class="xsteps-big">
+<li><strong>Get the firmware only from its official page</strong> (links above) and verify the signed checksums <em>before</em> installing. Paperclip Krux comes ready to use.</li>
+<li><strong>Choose &ldquo;new seed&rdquo;, never &ldquo;restore&rdquo;.</strong> Never type or load the seed that guards your BTC. A separate seed keeps the two coins apart for good.</li>
+<li><strong>Use dice for randomness</strong> where the device offers it: 99 six-sided rolls for 24 words.</li>
+<li><strong>Write every word, in order, on paper.</strong> Copy it to steel later if this is savings. No photos, no cloud, no typing it anywhere.</li>
+<li><strong>Verify the backup</strong> with the device&rsquo;s check (SeedSigner: <em>Verify</em>), or reload from your paper and confirm the wallet fingerprint matches.</li>
+<li><strong>Lock it:</strong> set a PIN or password if the device has one (Trezor, Coldcard), and label the device &ldquo;XBT only&rdquo;. SeedSigner has no PIN and keeps nothing; Krux&rsquo;s encryption key only protects a saved copy.</li>
+</ol>
+
+<h2 id="pair">Step 3: pair it with Shrike</h2>
+<ol class="xsteps-big">
+<li><strong>Install Shrike and connect it to your node.</strong> Shrike ships with no public servers. It needs your own Bitcoin Knots node (v29.4.1.knots20260508 or later; use the newest release), connected directly or through your own BLAKE2b-aware Electrum server in front of that node, under <strong>Settings &rarr; Server</strong>. Follow <a href="../wallets/#node">Set up Shrike, steps 1&ndash;5</a>, then come back here.</li>
+<li><strong>Create a new wallet</strong> and pick the keystore type: <strong>Airgapped Hardware Wallet</strong> for QR or microSD devices (Krux, SeedSigner, Coldcard), or <strong>Connected Hardware Wallet</strong> for USB (a Trezor on the XBT firmware).</li>
+<li><strong>Import the device&rsquo;s public key</strong> (the xpub export in the device notes above). Before going further, check that the wallet fingerprint in Shrike matches the one on the device. Shrike can now see your balance but can&rsquo;t spend on its own.</li>
+<li><strong>Mark it:</strong> wallet settings &rarr; keystore tab &rarr; tick <strong>Replay protection</strong>. Shrike can&rsquo;t detect firmware, so it&rsquo;s off until you tick it. Only tick it for a supported device.</li>
+</ol>
+
+<h2 id="test">Step 4: test receive and test send, then move the rest</h2>
+<ol class="xsteps-big">
+<li><strong>Receive:</strong> in Shrike&rsquo;s <strong>Receive</strong> tab, click <strong>Get Next Address</strong> and confirm the same address on the device. Send a small amount to it.</li>
+<li><strong>See it arrive</strong> in Shrike and on the XBT explorer <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>.</li>
+<li><strong>Send a small amount back</strong> to another address in the same wallet. Before signing, Shrike&rsquo;s send screen must say <strong>replay protected</strong>. On the device, check the amount, the address and, where shown, the hash type 0x21.</li>
+<li><strong>Broadcast and wait for confirmation.</strong> If the device says signing failed, nothing was sent and your coins haven&rsquo;t moved (Shrike FAQ).</li>
+<li><strong>Move the rest.</strong> Your XBT is now in your own custody.</li>
+</ol>
+
+<h2 id="no-hardware">No hardware wallet? Use Shrike on a computer</h2>
+<p>You can self-custody XBT today with Shrike alone. It makes and holds the seed on your computer and signs with replay protection by default; a wallet holding its own key needs no mark. You still need your own Knots node. That&rsquo;s fine for getting started or for smaller amounts, but the keys sit on a computer that goes online.</p>
+<p><a class="btn" href="../wallets/">Set up Shrike step by step</a></p>
+<p class="small">Sources for this page, all checked November 15, 2026: the links in each device section; Shrike&rsquo;s <a href="https://shrikewallet.com/docs/firmware.html" rel="noopener" target="_blank">firmware</a>, <a href="https://shrikewallet.com/docs/replay-protection.html" rel="noopener" target="_blank">replay protection</a>, <a href="https://shrikewallet.com/docs/quick-start.html" rel="noopener" target="_blank">quick start</a>, <a href="https://shrikewallet.com/docs/connect-node.html" rel="noopener" target="_blank">node</a> and <a href="https://shrikewallet.com/docs/faq.html" rel="noopener" target="_blank">FAQ</a> pages; <a href="https://bitcoinbip110.org/users" rel="noopener" target="_blank">BitcoinBIP110.org users guide</a>; <a href="https://sparrowwallet.com/docs/quick-start.html" rel="noopener" target="_blank">Sparrow Quick Start</a> (keystore types); <a href="https://xbt.live/cold-storage/" rel="noopener" target="_blank">xbt.live cold storage guide</a>. Listing is not an endorsement.</p>
+<p class="xpager"><a class="btn alt" href="../paths/">&larr; Your path in detail</a> <a class="btn" href="../wallets/">Next: Set up Shrike &rarr;</a> <a class="btn alt" href="../">Back to Start here</a></p><p class="callout small"><strong>Not financial or tax advice.</strong> This guide is education only. Splitting, selling or trading fork coins may be a taxable event where you live; talk to a tax professional. The XBT wallets and firmware mentioned are new, community-built and unaudited. Test with small amounts; you are responsible for your own keys. We never ask for seeds, keys or money. See <a href="../sources/">sources</a>.</p></article></main>
+<footer class="foot"><div class="wrap">
+<p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
+<p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
+<p class="small">Mesh radio gear and prices: <a href="https://meshcompare.com/">meshcompare.com</a></p>
+</div></footer>
+</body></html>

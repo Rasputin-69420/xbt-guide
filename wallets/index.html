@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Set up Shrike, the desktop XBT wallet: a beginner tutorial | XBT Self-Custody Guide</title><meta name="description" content="Step by step: get a Bitcoin Knots node running, download and verify Shrike on Windows, Mac or Linux, connect it, make and back up a new seed, check replay protection and do a small test. Plus other XBT wallets.">
+<link rel="canonical" href="https://rasputin-69420.github.io/xbt-guide/wallets/">
+<meta property="og:title" content="Set up Shrike, the desktop XBT wallet: a beginner tutorial | XBT Self-Custody Guide"><meta property="og:description" content="Step by step: get a Bitcoin Knots node running, download and verify Shrike on Windows, Mac or Linux, connect it, make and back up a new seed, check replay protection and do a small test. Plus other XBT wallets.">
+<meta property="og:site_name" content="XBT Self-Custody Guide"><meta property="og:type" content="website"><meta property="og:url" content="https://rasputin-69420.github.io/xbt-guide/wallets/">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0b1426"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="../"><span class="wordmark">XBT <b>Guide</b></span></a>
+<nav><a href="../">Start here</a><a href="../wallets/">Set up Shrike</a><a href="../exchanges/">Exchanges</a><a href="../mesh/">Mesh networks</a><a href="../faq/">FAQ &amp; glossary</a></nav></div></header>
+<main class="wrap"><article class="guide xguide"><p class="small"><a href="../">XBT guide</a> · updated 2026-11-15</p><nav class="xprog" aria-label="XBT guide steps"><p class="xstep-count">Step 4 of 12 &middot; <strong>Set up Shrike</strong></p><div class="xbar" role="presentation"><span style="width:33%"></span></div><details class="xall"><summary>All guide pages</summary><ol class="xsteps"><li><a href="../">Start here</a></li><li><a href="../paths/">Your path in detail</a></li><li><a href="../self-custody/">Self-custody</a></li><li><span aria-current="step">Set up Shrike</span></li><li><a href="../split/">Split BTC &amp; XBT</a></li><li><a href="../exchanges/">Exchanges</a></li><li><a href="../consolidate/">Withdraw &amp; consolidate</a></li><li><a href="../safety/">Safety checklist</a></li><li><a href="../why/">Why XBT</a></li><li><a href="../mesh/">Mesh networks</a></li><li><a href="../faq/">FAQ &amp; glossary</a></li><li><a href="../sources/">Sources</a></li></ol></details></nav><h1>Set up Shrike, the desktop XBT wallet: a beginner tutorial</h1><div class="xquick"><p class="xquick-h">Quick version</p><ol><li>Start a Bitcoin Knots node first: Shrike has no public servers and needs your own node.</li><li>Download Shrike from its official GitHub releases page, verify it, then make a brand-new XBT-only seed on paper.</li><li>Receive a small test amount first, then the rest.</li></ol></div>
+<p class="lead">Taking custody of XBT means holding it at an address whose seed only you have. This tutorial gets you there with <strong>Shrike</strong>, the free desktop XBT wallet xbt.live recommends, in 11 steps. The one step that catches people out is the first: Shrike needs your own node.</p>
+<p class="callout"><strong>Want a hardware wallet?</strong> Most stock devices can&rsquo;t sign XBT safely yet. See <a href="../self-custody/">How to self-custody XBT</a> for which ones can (Paperclip Krux, SeedSigner with XBT firmware, Trezor or Coldcard with unofficial firmware). You still use Shrike with them, so follow steps 1&ndash;5 here, then pair the device.</p>
+<p class="callout"><strong>Can I use Sparrow?</strong> Not regular Sparrow for XBT: it follows the BTC chain. Use <strong>Shrike</strong> (a Sparrow fork with replay protection on by default) or the <strong>paulscode Sparrow BLAKE2b build</strong>. Regular Sparrow is still fine on the <em>BTC</em> side, for example its coin control when you <a href="../split/">split coins you held before the split</a>.</p>
+<p class="callout"><strong>Everything here is new and unaudited.</strong> Shrike&rsquo;s own README says: &ldquo;Not audited. Use at your own risk.&rdquo; Verify every download and start with a small amount.</p>
+
+<div class="need"><strong>What you need</strong><ul>
+<li>A Windows, Mac or Linux computer, and about 45 minutes once your node is running.</li>
+<li>Your own Bitcoin Knots node, v29.4.1.knots20260508 or later (step 1). This is the slow part: a new node has to sync.</li>
+<li>Pen and paper (a steel backup is better for savings). No phone camera, no cloud.</li>
+<li>GnuPG for checking the download: <a href="https://gpg4win.org/" rel="noopener" target="_blank">Gpg4win</a> on Windows, <a href="https://gpgtools.org/" rel="noopener" target="_blank">GPG Suite</a> or Homebrew <code>gnupg</code> on a Mac; most Linux systems already have <code>gpg</code>.</li>
+<li>A small amount of XBT for the test, or a plan to get some (<a href="../#choose">Start here, step 2</a>).</li>
+</ul></div>
+
+<h2 id="node">1. Get a node running (start this first)</h2>
+<p>Shrike ships with <strong>no public servers</strong>, on purpose: its docs say the usual public ones &ldquo;are still on the SHA256d chain&rdquo; (the BTC chain), so they would answer about the wrong coin. You point it at a node you run. Shrike&rsquo;s quick start says to do this first, because &ldquo;it is the slowest part because the node has to sync.&rdquo;</p>
+<ul>
+<li><strong>The node software:</strong> <a href="https://github.com/bitcoinknots/bitcoin/releases" rel="noopener" target="_blank">Bitcoin Knots</a>. Shrike needs <strong>v29.4.1.knots20260508 or later</strong>. Use the newest release (v29.5.knots20260508, published November 6, 2026, when we checked): xbt.live notes that XBT&rsquo;s coinbase-lock rule is enforced by Knots 29.4.3 and newer. Bitcoin Core won&rsquo;t work; it stayed on the BTC chain.</li>
+<li><strong>The easier route for most people:</strong> a home node box. Shrike&rsquo;s docs point to a Bitcoin University video, <a href="https://youtu.be/7-5XszJcD6g" rel="noopener" target="_blank">&ldquo;Running Bitcoin On Blake2B (Start9, Umbrel)&rdquo;</a>, which covers Start9 and Umbrel and installing Shrike against them. Shrike notes it&rsquo;s a community recording made before the current release.</li>
+<li><strong>Already ran a node before the split?</strong> Shrike warns a node pruned before the fork &ldquo;may stall rather than follow the new work.&rdquo; Check it&rsquo;s past block 961,640 and following BLAKE2b before relying on it.</li>
+</ul>
+<p class="small">Sources: Shrike <a href="https://shrikewallet.com/docs/quick-start.html" rel="noopener" target="_blank">quick start</a> and <a href="https://shrikewallet.com/docs/connect-node.html" rel="noopener" target="_blank">connecting a node</a>; <a href="https://github.com/bitcoinknots/bitcoin/releases" rel="noopener" target="_blank">Bitcoin Knots releases</a>; <a href="https://xbt.live/faq/" rel="noopener" target="_blank">xbt.live FAQ</a> (coinbase lock). Checked 2026-11-15.</p>
+
+<h2 id="download">2. Download Shrike from its official page</h2>
+<p>Go to <a href="https://github.com/privkeyio/shrike/releases" rel="noopener" target="_blank">github.com/privkeyio/shrike/releases</a>. Skip search ads, DMs and &ldquo;mirror&rdquo; links. Into one folder, download the installer for your system plus three check files:</p>
+<div class="tablewrap"><table class="data xstack"><thead><tr><th scope="col">Your computer</th><th scope="col">File (release v2.5.6-blake2b.1)</th></tr></thead><tbody>
+<tr><td data-label="Your computer">Windows</td><td data-label="File (release v2.5.6-blake2b.1)"><code>Shrike-2.5.6-1.msi</code></td></tr>
+<tr><td data-label="Your computer">Mac with Apple chip (M1 and later)</td><td data-label="File (release v2.5.6-blake2b.1)"><code>Shrike-2.5.6-1-arm64-unsigned.dmg</code></td></tr>
+<tr><td data-label="Your computer">Mac with Intel chip</td><td data-label="File (release v2.5.6-blake2b.1)"><code>Shrike-2.5.6-1-x86_64-unsigned.dmg</code></td></tr>
+<tr><td data-label="Your computer">Linux (Debian/Ubuntu, Intel/AMD)</td><td data-label="File (release v2.5.6-blake2b.1)"><code>shrike_2.5.6-1_amd64.deb</code> (or <code>_arm64.deb</code>, or the <code>.tar.gz</code>)</td></tr>
+<tr><td data-label="Your computer">Everyone, also download</td><td data-label="File (release v2.5.6-blake2b.1)"><code>SHA256SUMS</code>, <code>SHA256SUMS.asc</code>, <code>privkeyio-signing-key.asc</code></td></tr>
+</tbody></table></div>
+<p class="small">File names are from the release published October 29, 2026, checked November 15, 2026. Newer releases will have new numbers; use the latest one.</p>
+
+<h2 id="verify">3. Verify the download</h2>
+<p>This proves the file is the one the developer signed, not a look-alike. Fake wallets are a common way people lose coins. Open a terminal (Windows: PowerShell) in the download folder.</p>
+<p><strong>Linux</strong> (the commands from Shrike&rsquo;s README):</p>
+<pre><code>gpg --import privkeyio-signing-key.asc
+gpg --verify SHA256SUMS.asc SHA256SUMS
+sha256sum --ignore-missing -c SHA256SUMS</code></pre>
+<p><strong>Mac</strong> (Apple chip shown; use the <code>x86_64</code> file name on an Intel Mac):</p>
+<pre><code>gpg --import privkeyio-signing-key.asc
+gpg --verify SHA256SUMS.asc SHA256SUMS
+shasum -a 256 Shrike-2.5.6-1-arm64-unsigned.dmg
+grep dmg SHA256SUMS</code></pre>
+<p><strong>Windows</strong> (with Gpg4win installed):</p>
+<pre><code>gpg --import privkeyio-signing-key.asc
+gpg --verify SHA256SUMS.asc SHA256SUMS
+certutil -hashfile Shrike-2.5.6-1.msi SHA256
+Select-String msi SHA256SUMS</code></pre>
+<p><strong>What you should see:</strong></p>
+<ul>
+<li><code>Good signature from "Kyle Santiago &lt;kyle@privkey.io&gt;"</code></li>
+<li><code>Primary key fingerprint: A47D 99B6 DB0D 715D 40C5  9A20 23AE 8A8E A7E2 4E38</code>. Compare it with the key printed in <a href="https://github.com/privkeyio/shrike#releases" rel="noopener" target="_blank">Shrike&rsquo;s README</a>; they must match.</li>
+<li>On Linux, <code>OK</code> next to your file. On Mac and Windows, the long hash from <code>shasum</code> or <code>certutil</code> must match the line for your file in <code>SHA256SUMS</code> exactly (capital or small letters don&rsquo;t matter).</li>
+</ul>
+<p>A warning that the key &ldquo;is not certified&rdquo; is expected; it only means you haven&rsquo;t marked the key as trusted yourself. <strong>If the signature is bad or a hash doesn&rsquo;t match, stop.</strong> Delete the files and ask on the project&rsquo;s <a href="https://github.com/privkeyio/shrike/issues" rel="noopener" target="_blank">Issues page</a>. Already have Shrike? Its release notes say you can use <strong>Tools &gt; Verify Download</strong> instead.</p>
+<p class="small">Sources: <a href="https://github.com/privkeyio/shrike" rel="noopener" target="_blank">Shrike README</a> (&ldquo;Releases&rdquo;) and <a href="https://github.com/privkeyio/shrike/releases" rel="noopener" target="_blank">v2.5.6-blake2b.1 release notes</a>, checked 2026-11-15. The Mac and Windows hash commands are the standard <code>shasum</code> and <code>certutil</code> tools.</p>
+
+<h2 id="install">4. Install it (and get past the warnings)</h2>
+<p>Shrike&rsquo;s README says its Mac builds aren&rsquo;t notarized and its Windows installer isn&rsquo;t Authenticode-signed, &ldquo;so both are reported as untrusted on first launch.&rdquo; That&rsquo;s expected. <strong>Only continue if step 3 passed.</strong></p>
+<ul>
+<li><strong>Windows:</strong> run the <code>.msi</code>. If Windows SmartScreen says it protected your PC, choose <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
+<li><strong>Mac:</strong> open the <code>.dmg</code> and drag Shrike to Applications. The first launch is blocked. Open <strong>System Settings &gt; Privacy &amp; Security</strong>, scroll to <strong>Security</strong>, and click <strong>Open Anyway</strong> (from the release notes). The README also gives a terminal route: <code>xattr -dr com.apple.quarantine /Applications/Shrike.app</code>. It warns that clearing quarantine removes the check that would stop a tampered download, so verify first.</li>
+<li><strong>Linux (Debian/Ubuntu):</strong> <code>sudo apt install ./shrike_2.5.6-1_amd64.deb</code>, or unpack the <code>.tar.gz</code>.</li>
+</ul>
+<p>Shrike installs alongside a normal Sparrow without sharing settings; it keeps its own folder, <code>~/.shrike</code>.</p>
+
+<h2 id="connect">5. Connect Shrike to your node</h2>
+<p>Open <strong>Settings &rarr; Server</strong> and pick one of the two setups Shrike supports. Both need the Knots node from step 1.</p>
+<ul>
+<li><strong>Simplest: connect straight to your Knots node.</strong> Choose <strong>Bitcoin Knots</strong> and point it at your node&rsquo;s RPC. The server toggle in the status bar turns <strong>green</strong> once it connects. This is also the only setup where Shrike cross-checks the split height with your node.</li>
+<li><strong>Most private and faster: your own Electrum server in front of that node.</strong> Choose <strong>Private Electrum</strong>; the toggle turns <strong>blue</strong>. Stock Fulcrum won&rsquo;t work. Shrike links BLAKE2b-aware builds: <a href="https://github.com/privkeyio/Fulcrum/releases/latest" rel="noopener" target="_blank">Fulcrum with BLAKE2b</a> (also <a href="https://github.com/privkeyio/fulcrum-startos/releases/latest" rel="noopener" target="_blank">packaged for StartOS</a>) and <a href="https://github.com/jasonsopko/electrs" rel="noopener" target="_blank">electrs with BLAKE2b support</a> (source only). Both are unofficial and unaudited.</li>
+</ul>
+<p><strong>What about public servers?</strong> Shrike removed its built-in ones &ldquo;because they stopped at the activation height&rdquo;. Its docs allow an Electrum server that is &ldquo;your own, or one you know is current.&rdquo; xbt.live mentions &ldquo;Oracle Knots&rsquo; public server&rdquo; for the Sparrow BLAKE2b build; we couldn&rsquo;t confirm its address from a primary source, so we don&rsquo;t list one.</p>
+<p class="callout small"><strong>Privacy note:</strong> any server you connect to sees which addresses you ask about. Shrike&rsquo;s docs say a direct node connection keeps everything on your machine, but the node stores your balances and public keys unencrypted, &ldquo;so it is a poor host for keys you are treating as cold storage.&rdquo; Keep the keys on a <a href="../self-custody/">hardware wallet</a> for savings.</p>
+<p class="small">Source: Shrike <a href="https://shrikewallet.com/docs/connect-node.html" rel="noopener" target="_blank">connecting a node or Electrum server</a>, <a href="https://shrikewallet.com/docs/quick-start.html" rel="noopener" target="_blank">quick start</a> and <a href="https://github.com/privkeyio/shrike" rel="noopener" target="_blank">README</a>; <a href="https://xbt.live/wallets/" rel="noopener" target="_blank">xbt.live wallets</a>. Checked 2026-11-15.</p>
+
+<h2 id="create">6. Create a new wallet</h2>
+<p>Shrike&rsquo;s quick start says this part &ldquo;is unchanged from upstream, so Sparrow&rsquo;s documentation applies in full.&rdquo; These names come from Sparrow&rsquo;s Quick Start. Using a hardware wallet instead? Skip to <a href="../self-custody/#pair">pairing it with Shrike</a>.</p>
+<ol>
+<li>Click <strong>Create New Wallet</strong>, give it a name (for example &ldquo;XBT savings&rdquo;) and click <strong>New Wallet</strong>.</li>
+<li>Leave <strong>Single Signature</strong> and <strong>Native Segwit</strong> as they are.</li>
+<li>Choose <strong>New or Imported Software Wallet</strong>, then <strong>Mnemonic Words (BIP39)</strong>.</li>
+<li>Pick 12 or 24 words and click <strong>Generate New</strong>.</li>
+</ol>
+<p><strong>Always generate a brand-new seed for XBT.</strong> Never reuse a seed that holds bitcoin.</p>
+
+<h2 id="seed">7. Write the seed down, offline</h2>
+<ul>
+<li>Write the words in order on paper, clearly. Later, copy them onto steel if this is savings.</li>
+<li>Never type them into a website, chat, email or notes app. Never photograph them or put them in the cloud.</li>
+<li>Store the paper somewhere safe and private. Anyone with these words owns the coins.</li>
+</ul>
+
+<h2 id="backup">8. Confirm the backup</h2>
+<ol>
+<li>Click <strong>Confirm Backup&hellip;</strong>, then <strong>Re-enter Words&hellip;</strong>, and type the words back in from your paper.</li>
+<li>Look for <strong>Valid checksum</strong>. Then click <strong>Create Keystore</strong>, then <strong>Import Keystore</strong>.</li>
+<li>Click <strong>Apply</strong> and choose a password for the wallet file.</li>
+</ol>
+
+<h2 id="replay">9. Check replay protection</h2>
+<p>Shrike signs with XBT&rsquo;s unified signature hash (<code>0x21</code>) by default, which makes transactions invalid on the BTC chain. Its README says to <strong>check the send screen before building anything</strong>: it shows whether the transaction is replay protected. A wallet made in step 6 holds its own key and &ldquo;needs no mark&rdquo;. If you use a hardware wallet, tick it under <strong>Replay protection</strong> in the keystore tab of the wallet settings; Shrike can&rsquo;t tell which firmware a device runs, so it&rsquo;s off until you say so. The <a href="https://github.com/privkeyio/shrike#replay-protection" rel="noopener" target="_blank">README has screenshots</a> of each screen.</p>
+
+<h2 id="receive">10. Get a receive address</h2>
+<p>Open the <strong>Receive</strong> tab and click <strong>Get Next Address</strong>. Copy it with the copy button rather than by hand. On a hardware wallet, check the address on the device&rsquo;s screen too. Label it as XBT: BTC and XBT addresses look identical. Shrike&rsquo;s screens and docs still say &ldquo;Bitcoin&rdquo; and &ldquo;BTC&rdquo; and call the old chain &ldquo;SHA256d&rdquo;; in this guide, what Shrike holds is XBT, a separate coin from your BTC.</p>
+
+<h2 id="test">11. Do a small test, then move the rest</h2>
+<ol>
+<li><strong>Send a small amount</strong> to that address (from an exchange, or your old wallet).</li>
+<li><strong>Watch it arrive</strong> in the <strong>Transactions</strong> tab.</li>
+<li><strong>Look it up on the XBT explorer</strong> <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>. Shrike&rsquo;s README says it uses mempool.guide for fee rates, explorer links and broadcasting.</li>
+<li><strong>Prove you can spend:</strong> send a small amount back to another address in the same wallet and check the send screen says replay protected.</li>
+<li><strong>Then move the rest.</strong> Your XBT is now in your custody.</li>
+</ol>
+<p>Holding coins from before the split? Shrike&rsquo;s README notes that such coins &ldquo;are only separated once spent with an opted-in signature&rdquo;. Follow the <a href="../split/">split guide</a> before you open an old wallet here.</p>
+
+<h2 id="hardware">Optional: keep the keys on a hardware wallet</h2>
+<p>For savings, keep the seed on a device that never goes online and use Shrike only to watch and build transactions. Which devices work, the best pick, and how to pair one: <a href="../self-custody/">How to self-custody XBT</a>. Either way, mark the device under <strong>Replay protection</strong> in Shrike (step 9) and do the same small test first.</p>
+
+<h2 id="other">Other XBT wallets</h2>
+<div class="tablewrap"><table class="data xstack">
+<thead><tr><th scope="col">Wallet</th><th scope="col">Type</th><th scope="col">Replay protection</th><th scope="col">Notes</th></tr></thead>
+<tbody>
+<tr><td data-label="Wallet"><a href="https://github.com/privkeyio/shrike" rel="noopener" target="_blank">Shrike</a></td><td data-label="Type">Desktop</td><td data-label="Replay protection">Yes, on by default</td><td data-label="Notes">This tutorial&rsquo;s pick. Sparrow fork by privkeyio. Needs your own Knots node. Unaudited.</td></tr>
+<tr><td data-label="Wallet"><a href="https://github.com/paulscode/sparrow" rel="noopener" target="_blank">Sparrow BLAKE2b build</a></td><td data-label="Type">Desktop</td><td data-label="Replay protection">Yes</td><td data-label="Notes">Community build by paulscode. Needs a BLAKE2b-aware Electrum server.</td></tr>
+<tr><td data-label="Wallet"><a href="https://github.com/bitcoinknots/bitcoin" rel="noopener" target="_blank">Bitcoin Knots</a></td><td data-label="Type">Full node + wallet</td><td data-label="Replay protection">Yes</td><td data-label="Notes">The reference software. Most direct if you already run a node.</td></tr>
+<tr><td data-label="Wallet">Hardware wallets</td><td data-label="Type">Signers</td><td data-label="Replay protection">Depends on the device</td><td data-label="Notes">Paperclip Krux, SeedSigner and others: see <a href="../self-custody/#table">the device table</a>.</td></tr>
+</tbody></table></div>
+<p>No XBT wallet has been independently audited.</p>
+<p class="small">Sources: <a href="https://xbt.live/wallets/" rel="noopener" target="_blank">xbt.live wallets</a> (last checked by xbt.live November 11, 2026); <a href="https://github.com/privkeyio/shrike" rel="noopener" target="_blank">Shrike README</a> and <a href="https://github.com/privkeyio/shrike/releases" rel="noopener" target="_blank">releases</a>; Shrike <a href="https://shrikewallet.com/docs/quick-start.html" rel="noopener" target="_blank">quick start</a> and <a href="https://shrikewallet.com/docs/connect-node.html" rel="noopener" target="_blank">node docs</a>; <a href="https://sparrowwallet.com/docs/quick-start.html" rel="noopener" target="_blank">Sparrow Quick Start</a>; <a href="https://xbt.live/cold-storage/" rel="noopener" target="_blank">xbt.live cold storage guide</a>. All checked 2026-11-15.</p>
+<p class="xpager"><a class="btn alt" href="../self-custody/">&larr; Self-custody</a> <a class="btn" href="../split/">Next: Split BTC &amp; XBT &rarr;</a> <a class="btn alt" href="../">Back to Start here</a></p><p class="callout small"><strong>Not financial or tax advice.</strong> This guide is education only. Splitting, selling or trading fork coins may be a taxable event where you live; talk to a tax professional. The XBT wallets and firmware mentioned are new, community-built and unaudited. Test with small amounts; you are responsible for your own keys. We never ask for seeds, keys or money. See <a href="../sources/">sources</a>.</p></article></main>
+<footer class="foot"><div class="wrap">
+<p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
+<p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
+<p class="small">Mesh radio gear and prices: <a href="https://meshcompare.com/">meshcompare.com</a></p>
+</div></footer>
+</body></html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your path to XBT, in full detail | XBT Self-Custody Guide</title><meta name="description" content="Every path to XBT in your own wallet, in full: from dollars, from bitcoin held before or after the August 8, 2026 split, from an exchange, and gathering coins, plus how to tell if a coin predates the split.">
+<link rel="canonical" href="https://rasputin-69420.github.io/xbt-guide/paths/">
+<meta property="og:title" content="Your path to XBT, in full detail | XBT Self-Custody Guide"><meta property="og:description" content="Every path to XBT in your own wallet, in full: from dollars, from bitcoin held before or after the August 8, 2026 split, from an exchange, and gathering coins, plus how to tell if a coin predates the split.">
+<meta property="og:site_name" content="XBT Self-Custody Guide"><meta property="og:type" content="website"><meta property="og:url" content="https://rasputin-69420.github.io/xbt-guide/paths/">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0b1426"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="../"><span class="wordmark">XBT <b>Guide</b></span></a>
+<nav><a href="../">Start here</a><a href="../wallets/">Set up Shrike</a><a href="../exchanges/">Exchanges</a><a href="../mesh/">Mesh networks</a><a href="../faq/">FAQ &amp; glossary</a></nav></div></header>
+<main class="wrap"><article class="guide xguide"><p class="small"><a href="../">XBT guide</a> · updated 2026-11-15</p><nav class="xprog" aria-label="XBT guide steps"><p class="xstep-count">Step 2 of 12 &middot; <strong>Your path in detail</strong></p><div class="xbar" role="presentation"><span style="width:17%"></span></div><details class="xall"><summary>All guide pages</summary><ol class="xsteps"><li><a href="../">Start here</a></li><li><span aria-current="step">Your path in detail</span></li><li><a href="../self-custody/">Self-custody</a></li><li><a href="../wallets/">Set up Shrike</a></li><li><a href="../split/">Split BTC &amp; XBT</a></li><li><a href="../exchanges/">Exchanges</a></li><li><a href="../consolidate/">Withdraw &amp; consolidate</a></li><li><a href="../safety/">Safety checklist</a></li><li><a href="../why/">Why XBT</a></li><li><a href="../mesh/">Mesh networks</a></li><li><a href="../faq/">FAQ &amp; glossary</a></li><li><a href="../sources/">Sources</a></li></ol></details></nav><h1>Your path to XBT, in full detail</h1><div class="xquick"><p class="xquick-h">Quick version</p><ol><li>Find your situation below and follow its numbered steps.</li><li>Set up your XBT wallet first, and send a small test before the rest.</li><li>Never type a seed that still guards bitcoin into new or unfamiliar software.</li></ol></div>
+<p class="lead">The full version of each path on <a href="../">Start here</a>, with every caveat, fee and source. Whatever your path, set up your own XBT wallet first (<a href="../#step1">step 1</a>).</p>
+<p class="small">Jump to: <a href="#check">Before or after the split?</a> · <a href="#path-fiat">I have dollars</a> · <a href="#path-a">Held before Aug 8</a> · <a href="#path-b">Bought after Aug 8</a> · <a href="#path-c">On an exchange</a> · <a href="#path-d">Gather into one wallet</a></p>
+<div class="callout answer">
+<p><strong>Two quick answers</strong></p>
+<p><strong>How do I take custody of XBT?</strong> Get an XBT wallet that only you control: a <a href="../self-custody/">hardware wallet that signs XBT</a>, or <a href="../wallets/">Shrike</a> on your computer (it needs your own Bitcoin Knots node). Make a brand-new seed, write it on paper, then send your XBT to an address from that wallet, small test first. Once the coins sit at an address whose seed only you hold, they are in your custody.</p>
+<p><strong>Can I turn bitcoin I got after August 8, 2026 into XBT?</strong> Not by splitting. Coins you got after the split exist only on the BTC chain, so there is no XBT &ldquo;inside&rdquo; them. You can <strong>trade</strong> them for XBT on an exchange that has a BTC/XBT market, then withdraw the XBT to your own wallet. See <a href="#path-b">Bought after Aug 8</a>.</p>
+</div>
+<p class="callout"><strong>Golden rule:</strong> never type a seed that still guards bitcoin into new or unfamiliar software. Move your BTC to a fresh wallet first. Nobody needs your seed to &ldquo;claim&rdquo; anything.</p>
+
+<h2 id="check">Not sure if your coins are from before the split?</h2>
+<p><strong>The cut-off is block 961,631.</strong> That is the last block the BTC and XBT chains share. We checked that block 961,631 has the same hash on a BTC explorer (<a href="https://mempool.space/block/00000000000000000000807f9dc917442a67910426d79ebb2f8aa2149327ce8a" rel="noopener" target="_blank">mempool.space</a>) and on the XBT explorer <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>, and that block 961,632 (mined August 8, 2026) is different on each.</p>
+<ol>
+<li><strong>Find the transaction that paid you the coin.</strong> In your wallet, open the transaction and copy its transaction ID.</li>
+<li><strong>Look it up on a BTC block explorer</strong> and read its block height.</li>
+<li><strong>Height 961,631 or lower:</strong> the coin existed before the split, so the same coin exists on XBT too, unless it has already been spent on the XBT chain. Follow <a href="#path-a">Held before Aug 8</a>.</li>
+<li><strong>Height 961,632 or higher:</strong> the coin was made after the split. It is normally BTC-only. To be sure, search the same transaction ID on <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>: <em>not found</em> means BTC-only (<a href="#path-b">Bought after Aug 8</a>). <em>Found</em> means that transaction was also copied onto XBT (a &ldquo;replay&rdquo;), so you have XBT there as well.</li>
+</ol>
+<p class="small">Privacy note: an explorer website can see which transactions and addresses you look up. xbt.live also offers a read-only <a href="https://xbt.live/check/" rel="noopener" target="_blank">&ldquo;Do I have XBT?&rdquo; address checker</a> (no keys asked). Never type a seed or private key into any checker. Sources: <a href="https://xbt.live/history/" rel="noopener" target="_blank">xbt.live history</a> (BIP-110 enforced from block 961,632 on August 8, 2026); <a href="https://xbt.live/cold-storage/" rel="noopener" target="_blank">xbt.live cold storage guide</a> (&ldquo;share all history up to block 961,632&rdquo;); <a href="https://xbt.live/news/how-to-claim-and-sell-xbt" rel="noopener" target="_blank">xbt.live claim guide</a> (checking a transaction ID on an XBT explorer); block hashes checked on mempool.space and mempool.guide on November 15, 2026.</p>
+
+<h2 id="path-fiat">I have dollars and want XBT</h2>
+<p>XBT isn&rsquo;t sold for dollars on any big app. You buy bitcoin (or a dollar stablecoin) first, trade it for XBT on a small exchange, then withdraw the XBT to your own wallet.</p>
+<div class="need"><strong>What you need</strong><ul>
+<li>A photo ID for a mainstream app such as <a href="https://www.coinbase.com/" rel="noopener" target="_blank">Coinbase</a> or <a href="https://www.kraken.com/" rel="noopener" target="_blank">Kraken</a>. Both require identity verification to buy, per their own help pages.</li>
+<li>Your own XBT wallet, set up and tested (<a href="../#step1">step 1</a>).</li>
+<li>An account at an XBT exchange with two-factor login (<a href="../exchanges/">which ones</a>).</li>
+<li>Money you can afford to lose. Start small.</li>
+</ul></div>
+<ol>
+<li><strong>Set up your XBT wallet first</strong> (<a href="../self-custody/">hardware wallet</a> or <a href="../wallets/">Shrike</a>), so you have a receive address ready.</li>
+<li><strong>Buy bitcoin on a mainstream app.</strong> Coinbase and Kraken both ask for a government photo ID. Kraken says verification usually takes under 30 minutes; Coinbase says you hear back within 24 hours. Careful: on Kraken, &ldquo;XBT&rdquo; is its code for <strong>ordinary bitcoin</strong>, not the XBT in this guide.</li>
+<li><strong>Or buy a stablecoin instead.</strong> Some XBT markets trade against USDT or USDC: NonKYC (BTCB2/USDT), SafeTrade (XBT/USDT, XBT/USDC) and NeoxEX (XBT/USDT, XBT/USDC; read <a href="../exchanges/">our warning</a> first). Before you send a stablecoin, check which network the exchange accepts for that deposit. Sending on the wrong network can lose the funds.</li>
+<li><strong>Open an XBT exchange account</strong> and turn on two-factor login. NonKYC&rsquo;s FAQ says it has no identity check, and SafeTrade&rsquo;s sign-up guide has no ID step.</li>
+<li><strong>Send a small test deposit.</strong> On the XBT exchange, get a <em>BTC</em> deposit address (Bitcoin network) or the stablecoin address. Send a small amount from the mainstream app and wait until it&rsquo;s credited. Then send the rest.</li>
+<li><strong>Trade for XBT with a limit order.</strong> Use the BTC/XBT (or BTCB2/BTC) market, or the USDT/USDC one. Order books are thin, so buy in pieces. Base trading fees: NonKYC 0.2%, SafeTrade 0.10%, NeoxEX 0.1% maker / 0.2% taker.</li>
+<li><strong>Withdraw a small test of XBT to your own wallet.</strong> Pick the Bitcoin BLAKE2b / BIP110 network, paste a receive address from your wallet, and check that the coins arrive (look the transaction up on <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>). NonKYC charged 0.0039 BTCB2 per XBT withdrawal when we checked.</li>
+<li><strong>Withdraw the rest.</strong> Don&rsquo;t leave coins on a small exchange.</li>
+</ol>
+<p class="callout"><strong>Before you start:</strong> XBT is young, thinly traded and high-risk. Prices have fallen more than 80% in weeks, and small exchanges can pause withdrawals or fail. BitcoinBIP110.org warns: don&rsquo;t send bitcoin to a website just because it claims to sell XBT. Not financial advice.</p>
+<p class="small">Sources, checked 2026-11-15: <a href="https://help.coinbase.com/en/coinbase/getting-started/getting-started-with-coinbase/id-doc-verification" rel="noopener" target="_blank">Coinbase: verify your identity</a>; <a href="https://support.kraken.com/articles/201352206-verification-level-requirements" rel="noopener" target="_blank">Kraken: verification requirements</a> and <a href="https://support.kraken.com/articles/360001395743-verification-levels-explained" rel="noopener" target="_blank">verification explained</a>; NonKYC <a href="https://nonkyc.io/faq" rel="noopener" target="_blank">FAQ</a> and <a href="https://nonkyc.io/fees" rel="noopener" target="_blank">fees</a>; SafeTrade <a href="https://safetrade.com/help/faq/how-to-register-safetrade-account" rel="noopener" target="_blank">sign-up guide</a>; exchange markets and fees as listed on our <a href="../exchanges/">exchanges page</a>; <a href="https://xbt.live/buy/" rel="noopener" target="_blank">xbt.live where to buy</a> (Kraken ticker, price drop); <a href="https://bitcoinbip110.org/psa/" rel="noopener" target="_blank">BitcoinBIP110.org PSA-260901</a>. No referral links.</p>
+
+<h2 id="path-a">I held bitcoin before August 8, 2026</h2>
+<p>You already have XBT. If you controlled the keys to bitcoin in a coin from block 961,631 or earlier, the same keys control the same amount of XBT. There is nothing to buy and nothing to &ldquo;claim&rdquo;. The job is to move it into a new XBT wallet without putting your BTC at risk.</p>
+<div class="need"><strong>What you need</strong><ul>
+<li>Your old wallet (hardware wallet or seed).</li>
+<li>Your new XBT wallet from <a href="../#step1">step 1</a>, with a brand-new seed.</li>
+<li>A brand-new BTC wallet for your bitcoin (another new seed).</li>
+<li>For the usual split method: about $20 of BTC from an exchange (a &ldquo;BTC-only&rdquo; coin, explained in the <a href="../split/#method-a">split guide</a>).</li>
+<li>An XBT wallet app that can open the old wallet, such as <a href="../wallets/">Shrike</a>. An hour or two, and no rush: nothing expires.</li>
+</ul></div>
+<ol>
+<li><strong>Set up your new XBT wallet</strong> and write its brand-new seed on paper (<a href="../#step1">step 1</a>). It never touches your BTC.</li>
+<li><strong>Check you have XBT.</strong> Look up one of your old addresses on <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>, the XBT block explorer.</li>
+<li><strong>Protect your BTC first.</strong> Move all of it to a brand-new BTC wallet in a way that can&rsquo;t be copied onto XBT. The usual way includes a checked BTC-only coin: <a href="../split/#method-a">split guide, Method 1</a>.</li>
+<li><strong>Check your XBT stayed put</strong> at the old addresses on mempool.guide.</li>
+<li><strong>Open the old wallet in Shrike.</strong> Connect the old hardware wallet, or restore the old seed. That seed no longer guards any bitcoin, so it is now XBT-only.</li>
+<li><strong>Send a small test</strong> from the old wallet to your new XBT wallet, check it on mempool.guide, then send the rest.</li>
+<li><strong>Done.</strong> Your XBT is in your custody. Many small coins? See <a href="#path-d">Gather into one wallet</a>.</li>
+</ol>
+
+<h2 id="path-b">I bought bitcoin after August 8, 2026</h2>
+<p class="callout answer"><strong>Plain answer:</strong> coins you received in block 961,632 or later carry no XBT, and splitting won&rsquo;t create any. You <strong>can</strong> trade them for XBT on an exchange with a BTC market: NonKYC (BTCB2/BTC), SafeTrade (XBT/BTC, very thin) or NeoxEX (XBT/BTC, rated high-risk by BitcoinBIP110.org). XBT you buy exists only on the XBT chain, so it has no replay risk.</p>
+<div class="need"><strong>What you need</strong><ul>
+<li>Your own XBT wallet with a receive address (<a href="../#step1">step 1</a>).</li>
+<li>An account at an <a href="../exchanges/">XBT exchange</a> with two-factor login.</li>
+<li>The BTC you want to trade. Start with a small amount.</li>
+</ul></div>
+<ol>
+<li><strong>Set up your XBT wallet</strong> and copy a receive address.</li>
+<li><strong>Pick an exchange with a BTC pair.</strong> Read the <a href="../exchanges/">exchange table</a> and the NeoxEX warning.</li>
+<li><strong>Deposit a small test of BTC.</strong> Use the exchange&rsquo;s <em>BTC</em> deposit address, not its XBT one. Wait until it&rsquo;s credited.</li>
+<li><strong>Buy XBT with limit orders,</strong> in pieces.</li>
+<li><strong>Withdraw a small test of XBT</strong> to your wallet on the Bitcoin BLAKE2b / BIP110 network. Check it on mempool.guide.</li>
+<li><strong>Withdraw the rest.</strong> Then you hold your XBT yourself.</li>
+</ol>
+<p class="small">Sources: <a href="https://xbt.live/cold-storage/" rel="noopener" target="_blank">xbt.live cold storage guide</a> (coins bought on an exchange have no replay risk); exchange pairs checked on each exchange&rsquo;s site, see <a href="../exchanges/">Buy with BTC</a>.</p>
+
+<h2 id="path-c">My XBT is on an exchange</h2>
+<div class="need"><strong>What you need</strong><ul>
+<li>Your own XBT wallet (<a href="../#step1">step 1</a>).</li>
+<li>Your exchange login with two-factor on.</li>
+</ul></div>
+<ol>
+<li><strong>Get a receive address</strong> from your XBT wallet (<a href="../wallets/#receive">how</a>). On a hardware wallet, check the address on its screen.</li>
+<li><strong>Open the exchange&rsquo;s withdraw page</strong> for XBT (it may say BTCB2 or BIP110). Confirm the network is Bitcoin BLAKE2b / BIP110.</li>
+<li><strong>Withdraw a small test amount</strong> and wait until it shows in your wallet. Look it up on <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>.</li>
+<li><strong>Withdraw the rest.</strong></li>
+</ol>
+<p class="small">Coins that sat on an exchange at the time of the split are in the exchange&rsquo;s wallets. Whether you got XBT for them is up to that exchange.</p>
+
+<h2 id="path-d">Gather your XBT into one wallet</h2>
+<div class="need"><strong>What you need</strong><ul>
+<li>One main XBT wallet you trust, ideally on a <a href="../self-custody/">hardware wallet</a>.</li>
+<li>Your other XBT wallets, already split from BTC (<a href="#path-a">Held before Aug 8</a> done).</li>
+<li>A low-fee moment (check <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>).</li>
+</ul></div>
+<ol>
+<li><strong>Finish splitting first.</strong> Never consolidate coins whose seed still guards bitcoin.</li>
+<li><strong>Check the fee level</strong> and wait for a quiet period.</li>
+<li><strong>In each old wallet, send everything</strong> to a fresh receive address in your main wallet. Test with a small amount first.</li>
+<li><strong>Inside one wallet,</strong> use coin control to merge many small coins into one, if you want.</li>
+<li><strong>Think about privacy:</strong> merging coins links their addresses together.</li>
+</ol>
+<p><a class="btn" href="../consolidate/">Full withdraw and consolidate guide &rarr;</a></p>
+
+<p class="xpager"><a class="btn alt" href="../">&larr; Start here</a> <a class="btn" href="../self-custody/">Next: Self-custody &rarr;</a> <a class="btn alt" href="../">Back to Start here</a></p><p class="callout small"><strong>Not financial or tax advice.</strong> This guide is education only. Splitting, selling or trading fork coins may be a taxable event where you live; talk to a tax professional. The XBT wallets and firmware mentioned are new, community-built and unaudited. Test with small amounts; you are responsible for your own keys. We never ask for seeds, keys or money. See <a href="../sources/">sources</a>.</p></article></main>
+<footer class="foot"><div class="wrap">
+<p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
+<p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
+<p class="small">Mesh radio gear and prices: <a href="https://meshcompare.com/">meshcompare.com</a></p>
+</div></footer>
+</body></html>
