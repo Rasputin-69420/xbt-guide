@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Withdraw and consolidate your XBT into one wallet | XBT Self-Custody Guide</title><meta name="description" content="Get XBT off exchanges and into your own wallet, then gather several coins or wallets into one: why, the fee and privacy tradeoffs, timing it for low fees, and what XBT tooling does and doesn&#x27;t support.">
+<link rel="canonical" href="https://rasputin-69420.github.io/xbt-guide/consolidate/">
+<meta property="og:title" content="Withdraw and consolidate your XBT into one wallet | XBT Self-Custody Guide"><meta property="og:description" content="Get XBT off exchanges and into your own wallet, then gather several coins or wallets into one: why, the fee and privacy tradeoffs, timing it for low fees, and what XBT tooling does and doesn&#x27;t support.">
+<meta property="og:site_name" content="XBT Self-Custody Guide"><meta property="og:type" content="website"><meta property="og:url" content="https://rasputin-69420.github.io/xbt-guide/consolidate/">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0b1426"><meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="../"><span class="wordmark">XBT <b>Guide</b></span></a>
+<nav><a href="../">Start here</a><a href="../wallets/">Set up Shrike</a><a href="../exchanges/">Exchanges</a><a href="../mesh/">Mesh networks</a><a href="../faq/">FAQ &amp; glossary</a></nav></div></header>
+<main class="wrap"><article class="guide xguide"><p class="small"><a href="../">XBT guide</a> · updated 2026-11-15</p><nav class="xprog" aria-label="XBT guide steps"><p class="xstep-count">Step 7 of 12 &middot; <strong>Withdraw &amp; consolidate</strong></p><div class="xbar" role="presentation"><span style="width:58%"></span></div><details class="xall"><summary>All guide pages</summary><ol class="xsteps"><li><a href="../">Start here</a></li><li><a href="../paths/">Your path in detail</a></li><li><a href="../self-custody/">Self-custody</a></li><li><a href="../wallets/">Set up Shrike</a></li><li><a href="../split/">Split BTC &amp; XBT</a></li><li><a href="../exchanges/">Exchanges</a></li><li><span aria-current="step">Withdraw &amp; consolidate</span></li><li><a href="../safety/">Safety checklist</a></li><li><a href="../why/">Why XBT</a></li><li><a href="../mesh/">Mesh networks</a></li><li><a href="../faq/">FAQ &amp; glossary</a></li><li><a href="../sources/">Sources</a></li></ol></details></nav><h1>Withdraw and consolidate your XBT into one wallet</h1><div class="xquick"><p class="xquick-h">Quick version</p><ol><li>Withdraw from exchanges to a fresh receive address in your own wallet, small test first.</li><li>Gather coins into one wallet only after splitting, and when fees are low.</li><li>Merging coins links their addresses, so think about privacy.</li></ol></div>
+<p class="lead">The end goal of this guide: all your XBT in one wallet whose seed only you hold. This page covers the last two moves: withdrawing from exchanges, and gathering scattered coins together.</p>
+
+<h2 id="withdraw">Withdraw from an exchange</h2>
+<div class="need"><strong>What you need</strong><ul>
+<li>Your XBT wallet with a fresh receive address (<a href="../wallets/#receive">how to get one</a>).</li>
+<li>Your exchange login with two-factor on.</li>
+</ul></div>
+<ol>
+<li><strong>Copy a receive address</strong> from your wallet. On a hardware wallet, confirm it on the device screen.</li>
+<li><strong>On the exchange, open Withdraw for XBT</strong> (listed as XBT, BTCB2 or BIP110). Check the network says Bitcoin BLAKE2b / BIP110, not Bitcoin.</li>
+<li><strong>Send a small test</strong> and wait for it to arrive. Look it up on <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a>.</li>
+<li><strong>Withdraw the rest.</strong> Expect a withdrawal fee (NonKYC: 0.0039 BTCB2 per withdrawal, checked November 15, 2026).</li>
+</ol>
+
+<h2>Why consolidate?</h2>
+<p>Your wallet holds XBT as separate coins (UTXOs): one for each payment or withdrawal you received. Gathering them helps when:</p>
+<ul>
+<li><strong>You have XBT in several wallets</strong>, for example an old pre-split seed, a phone wallet and exchange withdrawals. One wallet means one seed to protect and one backup to check.</li>
+<li><strong>You have many small coins.</strong> Each coin you spend adds to a transaction&rsquo;s size, so a wallet full of small coins costs more to spend later. Merging them while fees are low pays that cost once, cheaply. The Bitcoin wiki notes some wallets &ldquo;consolidate inputs in times of cheap miner fees&rdquo; for this reason.</li>
+</ul>
+
+<h2>The tradeoffs</h2>
+<ul>
+<li><strong>Fees now.</strong> A consolidation is a transaction, so it costs a fee, and the more coins in it, the bigger it is. Only worth it if fees are low.</li>
+<li><strong>Privacy.</strong> Spending several coins together tells everyone watching the chain that they belong to the same owner. The Bitcoin wiki calls this the common-input-ownership heuristic and says chain-surveillance companies use it widely. If you want to keep some coins unlinked (for example, exchange withdrawals and coins from your old wallet), consolidate them separately or not at all.</li>
+<li><strong>Replay.</strong> Never consolidate coins from a seed that still guards bitcoin. <a href="../split/">Split first</a>. After that, a wallet that signs with XBT&rsquo;s unified sighash (Shrike, the Sparrow BLAKE2b build, Knots) makes the transaction invalid on BTC.</li>
+</ul>
+
+<h2 id="how">How to consolidate</h2>
+<div class="need"><strong>What you need</strong><ul>
+<li>One main XBT wallet, ideally on a <a href="../self-custody/">hardware wallet</a>.</li>
+<li>Every other wallet you want to empty, already split from BTC.</li>
+<li>A quiet moment for fees.</li>
+</ul></div>
+<ol>
+<li><strong>Check fees.</strong> Open <a href="https://mempool.guide/" rel="noopener" target="_blank">mempool.guide</a> and look at its fee estimates (in sat/vB, satoshis per unit of transaction size; lower is cheaper). When we checked on November 15, 2026, every estimate was 1 sat/vB, the minimum. Pick a time when the low-priority estimate is lowest.</li>
+<li><strong>Get a fresh receive address</strong> in your main wallet.</li>
+<li><strong>Empty each other wallet into it.</strong> Send a small test first, then send everything (use the wallet&rsquo;s send-all or max option). Use a low fee; you&rsquo;re not in a hurry.</li>
+<li><strong>Merge small coins inside one wallet (optional).</strong> In Shrike or the Sparrow BLAKE2b build, open the <strong>UTXOs</strong> tab (coin control), select the coins and send them to a new address in the same wallet. Check the send screen says replay protected.</li>
+<li><strong>Confirm on mempool.guide,</strong> then retire the old seeds. Don&rsquo;t reuse an emptied XBT seed for bitcoin.</li>
+</ol>
+<p class="callout small"><strong>Honest about the tools:</strong> we found no XBT-specific consolidation tool and no XBT guide on consolidation. The steps above use ordinary send and coin-control features: the UTXOs tab is documented for Sparrow (and in xbt.live&rsquo;s claim guide), and Shrike is a Sparrow fork that keeps Sparrow&rsquo;s screens, but we haven&rsquo;t tested a consolidation in it. Avoid any website or service that offers to consolidate, split or claim coins for you.</p>
+<p class="small">Sources: <a href="https://en.bitcoin.it/wiki/Privacy" rel="noopener" target="_blank">Bitcoin wiki: Privacy</a> (common-input-ownership heuristic; consolidating when fees are cheap); <a href="https://sparrowwallet.com/docs/spending-privately.html" rel="noopener" target="_blank">Sparrow: Spending privately</a> (how UTXOs work); <a href="https://xbt.live/news/how-to-claim-and-sell-xbt" rel="noopener" target="_blank">xbt.live claim guide</a> (coin control in the UTXOs tab); <a href="https://github.com/privkeyio/shrike" rel="noopener" target="_blank">Shrike README</a>; <a href="https://xbt.live/wallets/" rel="noopener" target="_blank">xbt.live wallets</a>; NonKYC <a href="https://api.nonkyc.io/api/v2/asset/getbyticker/BTCB2" rel="noopener" target="_blank">asset status</a> (withdrawal fee); mempool.guide fee estimates. All checked 2026-11-15.</p>
+<p class="xpager"><a class="btn alt" href="../exchanges/">&larr; Exchanges</a> <a class="btn" href="../safety/">Next: Safety checklist &rarr;</a> <a class="btn alt" href="../">Back to Start here</a></p><p class="callout small"><strong>Not financial or tax advice.</strong> This guide is education only. Splitting, selling or trading fork coins may be a taxable event where you live; talk to a tax professional. The XBT wallets and firmware mentioned are new, community-built and unaudited. Test with small amounts; you are responsible for your own keys. We never ask for seeds, keys or money. See <a href="../sources/">sources</a>.</p></article></main>
+<footer class="foot"><div class="wrap">
+<p><strong>XBT Self-Custody Guide</strong>: a plain guide to holding XBT (the BIP-110 fork, also called BTCB2) in self-custody, separate from your BTC. Last rebuilt 2026-11-15.</p>
+<p class="small">Not financial or tax advice. Education only. Wallets and firmware mentioned are new, community-built and unaudited; test with small amounts. We never ask for seeds, keys or money. <a href="../sources/">Sources</a>.</p>
+</div></footer>
+</body></html>
